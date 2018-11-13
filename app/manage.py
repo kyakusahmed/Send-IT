@@ -8,6 +8,10 @@ class Parcel:
 
     def __init__(self):
         self.parcels = parcels
+
+    def get_all_parcels(self):
+        """get all parcels."""
+        return self.parcels
         
 
     def add_parcel(self, sender_id, location, name, phone, country, destination, weight, price):
@@ -27,3 +31,4 @@ class Parcel:
         }
         self.parcels.append(parcel)
         return parcel
+

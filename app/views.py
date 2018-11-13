@@ -4,6 +4,11 @@ from app.manage import Parcel
 app2 = Flask(__name__)
 parcel = Parcel()
 
+
+@app2.route('/api/v1/parcels', methods=['GET'])
+def get_all_orders():
+    return jsonify({'parcels': parcel.get_all_parcels()}), 200
+
 @app2.route('/api/v1/parcels', methods=['POST'])
 def add_parcel():
     data = request.get_json()
@@ -34,3 +39,4 @@ def add_parcel():
         data['price'],
     )
     return jsonify({"parcel": save_parcel}), 201
+
