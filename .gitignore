@@ -1,3 +1,4 @@
 .vscode
 sen
-__pycache__
+tests/__pycache__/*
+app/__pycache__/*
