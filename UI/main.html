@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sendIT</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta charset="utf-8"> 
+<META name="keywords" lang="en-us" content="courier service for percels">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="topnav">
+<h1>SIT</h1>
+<a href="index.html">Signout</a>
+<a href="orders.html">Orders</a>
+<a class="active" href="#home">Main</a>
+</div>
+
+<div class="main-content">
+    <div class="orders">
+      <h2>sendIT</h2>
+      <h6><i></i></h6>
+
+    <div class="menu">
+    MAKE ORDER
+    <hr>
+        <div class="field">
+            <P>If Recipient Is Registered</p>
+            <label>Select Username:</label>
+            <select class="field">
+                <option value="1">AHMED22</option>
+                <option value="2">Trevor</option>
+                <option value="2">okidi</option>
+                <option value="2">Samuel</option>
+                <option value="2">Json</option>
+            </select>
+        </div>     
+        Recipient Not Registered
+    </div>
+
+    <form action="sender.html" class="order-item">
+        <div class="order-content">
+            <div class="field">
+                <label>Full name:</label>
+                    <input type="text"  placeholder="Full name" required>
+                </div>
+                <div class="field">
+                    <label>Phone number:</label>
+                    <input type="phone_number"  placeholder="Phone number" required>
+                </div>
+                <div class="field">
+                    <label>select country:</label>
+                    <select class="field">
+                        <option value="1">Kenya</option>
+                        <option value="2">Tanzania</option>
+                        <option value="2">Rwanda</option>
+                        <option value="2">Burundi</option>
+                        <option value="2">U.A.E</option>
+                    </select>
+                </div>     
+                
+                <div class="field">
+                    <label>town/city and street name:</label>
+                    <input type="text"  placeholder="Destination location" required>
+                </div>
+                <div class="container">
+                    <label>select the weight range of your parcel:</label>
+                    <div class="radio-buttons">
+                        <label><input type="radio" name="weight-price" id="weight" checked value="1000"> 1kg</label>
+                        <label><input type="radio" name="weight-price" id="weight" value="25000"> 2kg</label>
+                        <label><input type="radio" name="weight-price" id="weight" value="50000"> 5kg</label>
+                    </div>
+                   
+                </div>              
+            </div>
+            <div class="price">
+                <label>Price</label>
+                <span id="show_price"></span>
+            </div>
+            <div class="order-button">
+                <button type="submit" class="button">Next</button>
+            </div>
+
+        </form>
+    </div>    
+<script>
+var priceTag = document.getElementById('show_price')
+priceTag.innerHTML = '500shs '
+var weight_price = document.getElementsByName('weight-price')
+//console.log(weight_price)
+document.getElementById('weight_price').addEventListener('change', function () {
+    console.log('234356')
+})
+    for( let weight of weight_price) {
+        if (weight.checked) {
+            console.log(weight.value)
+        }
+        
+    }
+function myFunction() {
+    var price = document.getElementById("myCheck");
+    var text = document.getElementById("text");
+    if (checkBox.checked == true){
+        text.style.display = "block";
+    } else {
+       text.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>

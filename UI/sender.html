@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sendIT</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta charset="utf-8"> 
+<META name="keywords" lang="en-us" content="courier service for percels">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="topnav">
+<h1>SIT</h1>
+<a href="index.html">Signout</a>
+<a href="orders.html">Orders</a>
+<a class="active" href="#home">Main</a>
+</div>
+
+<div class="main-content">
+    <div class="orders">
+      <h2>sendIT</h2>
+      <h6><i></i></h6>
+
+    <div class="menu">
+        Sender
+    </div>
+
+    <form action="orders.html" class="order-item">
+        <div class="order-content">
+            <div class="field">
+                <label>Full name:</label>
+                    <input type="text"  placeholder="Full name" required>
+                </div>
+                <div class="field">
+                    <label>Phone number:</label>
+                    <input type="phone_number"  placeholder="Phone number" required>
+                </div>
+                <div class="field">
+                    <label>select country:</label>
+                    <select class="field">
+                        <option value="1">Kenya</option>
+                        <option value="2">Tanzania</option>
+                        <option value="2">Rwanda</option>
+                        <option value="2">Burundi</option>
+                        <option value="2">U.A.E</option>
+                    </select>
+                </div>     
+                
+                <div class="field">
+                    <label>Pickup location:</label>
+                    <input type="text"  placeholder="Pickup location" required>
+                </div>          
+            </div>
+            
+            <div class="order-button">
+                <button type="submit" class="button">Place Order</button>
+            </div>
+
+        </form>
+
+</body>
+</html>

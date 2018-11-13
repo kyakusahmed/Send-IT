@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sendIT</title>
+<link rel="stylesheet" type="text/css" href="css/orders.css">
+<meta charset="utf-8"> 
+<META name="keywords" lang="en-us" content="courier service for percels">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="topnav">
+<h1>SIT</h1>
+<a href="all_orders.html">All-Orders</a>
+<a class="active" href="#home">Tracking</a>
+<a href="profile.html">Profile</a>
+</div>
+
+<div class="content">
+    <h1>sendIT</h1>
+
+      <div id="map">
+        </div>
+
+    <script>
+            function initMap() {
+            var kamwenge = {lat: 0.225793, lng: 30.48184459999993};
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 4, center: kamwenge});
+                console.log(response)
+            var marker = new google.maps.Marker({position: kamwenge, map: map});
+            }
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?&callback=initMap">
+    </script>
+
+    </body>
+</html>
