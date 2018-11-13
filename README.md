@@ -1,6 +1,7 @@
 
 
 [![Build Status](https://travis-ci.org/kyakusahmed/Send-IT.svg?branch=challenge-2%2Fapiv1)](https://travis-ci.org/kyakusahmed/Send-IT)
+[![Coverage Status](https://coveralls.io/repos/github/kyakusahmed/Send-IT/badge.svg?branch=challenge-2%2Fapiv1)](https://coveralls.io/github/kyakusahmed/Send-IT?branch=challenge-2%2Fapiv1)
 
 
 # sendIT
