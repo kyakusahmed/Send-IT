@@ -1,6 +1,6 @@
 * {box-sizing: border-box;}
 body {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("../images/paket.jpg") ;
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("../images/kargo-paketi.jpg") ;
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0;
