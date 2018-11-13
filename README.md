@@ -1,5 +1,4 @@
 
-
 [![Build Status](https://travis-ci.org/kyakusahmed/Send-IT.svg?branch=challenge-2%2Fapiv1)](https://travis-ci.org/kyakusahmed/Send-IT)
 [![Coverage Status](https://coveralls.io/repos/github/kyakusahmed/Send-IT/badge.svg?branch=challenge-2%2Fapiv1)](https://coveralls.io/github/kyakusahmed/Send-IT?branch=challenge-2%2Fapiv1)
 
@@ -8,7 +7,9 @@
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
 [GH-PAGES](https://kyakusahmed.github.io/Send-IT/UI)
-[heroku](https://send--it.herokuapp.com/api/v1/parcels)
+
+
+[HEROKU](https://send--it.herokuapp.com/api/v1/parcels)
 
 
  Features
