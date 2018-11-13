@@ -1,0 +1,223 @@
+* {box-sizing: border-box;}
+body {
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("../images/kargo-paketi.jpg");
+  background-size: cover;
+  background-repeat: norepeat;
+  margin-bottom: -35px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 99%;
+  height: 100%; 
+}
+.topnav {
+  overflow: hidden;
+  background-color:orange;
+  color: green;
+  padding: 0 100px;
+}
+.topnav h1{
+    float: left;
+    padding: 6px;
+    color: orange;
+    font-size: 20px;
+    background-origin: padding-box;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+.topnav a {
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding:  22px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.topnav a:hover {
+  background-color: grey;
+  color: #ffffff;
+}
+.topnav a.active {
+  background-color: grey;
+  color: #ffffff;
+}
+
+.content {
+margin: -35px 100px;
+min-height: 60vh;
+padding: 45px;
+}
+
+.content h1, .orders h6 {
+text-align: center;
+color: #ffffff;
+}
+.orders .m2 {
+border-bottom: 3px solid lightgray;
+margin-bottom: 10px;
+color: lightgrey;
+text-align: center;
+}
+
+.orders .m2 .self, .mail, .contact, .primary_address{
+  text-align: left;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+}
+.order-item {
+margin: 10px 0;
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: flex-start;
+border-bottom: 2px solid green;
+}
+
+.order-image {
+flex: 1;
+}
+.order-image p {
+margin: 0;
+height: 80px;
+width: 100px;
+color: #ffffff;
+}
+
+.content1 {
+flex: 3;
+}
+.content1 {
+font-weight: bold;
+color: #ffffff;
+margin-bottom: 5px;
+font-size: 14px;
+}
+.Cancel-button, .Order-button, .status-button{
+padding: 5px;
+color: #ffffff;
+font-weight: bold;
+font-size: 12px;
+cursor: pointer;
+}
+
+.order-item .date {
+color: green;
+font-size: 12px;
+}
+
+.delivery {
+margin: 10px 0;
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: flex-start;
+border-bottom: 2px solid lightgray;
+}
+
+@media screen and (max-width: 620px) {
+.topnav .search-container {
+float: none;
+}
+.topnav a,.topnav input[type=text], .topnav .search-container button {
+  display: block;
+  text-align: left;
+  width: 100%;
+  margin: 10px;
+  padding: 14px;
+}
+.topnav input[type=text] {
+border: 1px solid #ccc; 
+}
+.orders, .orders .button {
+display: block;
+
+}
+.orders{
+float: none;
+margin: 0px;
+width: auto;
+padding: 10px;
+}
+
+}
+
+.button {
+font: bold 11px Arial;
+text-decoration: none;
+background-color: #EEEEEE;
+color: #333333;
+padding: 2px 6px 2px 6px;
+border-top: 1px solid #CCCCCC;
+border-right: 1px solid #333333;
+border-bottom: 1px solid #333333;
+border-left: 1px solid #CCCCCC;
+}
+
+#map{
+  width: 100%;
+  height: 400px;
+  background-color: #d3d3d3;
+}  
+.user{
+  display: flex;
+}
+.user .sender {
+  flex: 2;
+}
+
+.content1 .details {
+  display: block !important;
+}
+.user .recipient{
+ flex: 2;
+}
+
+.user .sender h2, .recipient h2, .details h2{
+  color:white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 14px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 14px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+
+.status-button{
+  display: inline-block;
+}
