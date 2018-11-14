@@ -71,22 +71,22 @@ $ python run.py
 
 
 
-| tasks               |    URLS                |  METHOD  |         PARAMS              | 
-| ------------------- | -----------------------|----------|-----------------------------|
-| get all parcels     | api/v1/parcels         |  GET     |   ---------------           |
-|                     |                        |          |                             |
-| get a specific      | api/v1/parcels/id      |  GET     |  id                         |
-| parcel order        |                        |          |                             |
-|                     |                        |          |                             |
-| user posts a parcel | api/v1/parcels         |  POST    | sender_id, location, name,  | 
-|                     |                        |          | phone, country, destination,| 
-|	              |			       |	  | weight, price               | 
-|                     |                        |          |                             |
-| user updates parcel | api/v1/parcels/id      |  PUT     | status                      |
-|                     |                        |          |                             |
-| Fetch all parcel    | api/v1/users/user_id/  | GET      | user_id                     |
-| delivery orders     | parcels                |          |                             |
-| by a specific user  |                        |          |                             |
+| tasks               |    URLS                |  METHOD  |         PARAMS                                | 
+| ------------------- | -----------------------|----------|-----------------------------------------------|
+| get all parcels     | api/v1/parcels         |  GET     |   ---------------                             |
+|                     |                        |          |                                               |
+| get a specific      | api/v1/parcels/id      |  GET     |  id                                           |
+| parcel order        |                        |          |                                               |
+|                     |                        |          |                                               |
+| user posts a parcel | api/v1/parcels         |  POST    | country, recepient_destination, price, weight | 
+|                     |                        |          | location, recepient_name, recepient_phone,    | 
+|	              |			       |	  | recepient_country, sender_id, status          | 
+|                     |                        |          |                                               |
+| user updates parcel | api/v1/parcels/id      |  PUT     | status, sender                                       |
+|                     |                        |          |                                               |
+| Fetch all parcel    | api/v1/users/user_id/  |  GET     | user_id                                       |
+| delivery orders     | parcels                |          |                                               |
+| by a specific user  |                        |          |                                               |
                                         
 	
 ### How to run the Tests:
