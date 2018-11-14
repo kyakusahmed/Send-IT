@@ -4,6 +4,7 @@ from app.manage import Parcel
 app2 = Flask(__name__)
 parcel = Parcel()
 
+
 from flask import Flask, jsonify, request
 from app.manage import Parcel
 
