@@ -41,7 +41,7 @@ Make sure that python 3.4/3.5/3.6/3.7 is installed on your computer
 
 Clone the repo
 ```
-git clone https://github.com/kyakusahmed/sendIT.git
+git clone https://github.com/kyakusahmed/Send-IT.git
 ```
 Change to the app directory
 ```
@@ -80,7 +80,7 @@ $ python run.py
 |                     |                        |          |                             |
 | user posts a parcel | api/v1/parcels         |  POST    | sender_id, location, name,  | 
 |                     |                        |          | phone, country, destination,| 
-|	                    |			                     |	         | weight, price               | 
+|	              |			       |	  | weight, price               | 
 |                     |                        |          |                             |
 | user updates parcel | api/v1/parcels/id      |  PUT     | status                      |
 |                     |                        |          |                             |
