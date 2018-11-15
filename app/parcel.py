@@ -13,10 +13,15 @@ class Parcel:
         """get list of all parcels."""
         return self.parcels
 
+    def last_parcel_id(self):
+        if len(self.parcels) < 1:
+            return 1
+        return self.parcels[-1]['id'] + 1    
+
     def add_parcel(self, sender_id, location, name, phone, country, destination, weight, price):
         """add new parcel."""
         parcel = {
-            "id": len(self.parcels)+1,
+            "id": self.last_parcel_id(),
             "sender_id": sender_id,
             "pickup_location": location,
             "recepient_name": name, 
