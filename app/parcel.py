@@ -49,5 +49,9 @@ class Parcel:
             return parcel
         return None  
 
+    def search_sender_parcels(self, sender_id):
+            parcels = [parcel for parcel in self.parcels if parcel['sender_id'] == int(sender_id)]
+            return parcels
+
 
 
