@@ -18,21 +18,21 @@ def get_all_orders():
 def add_parcel():
     data = request.get_json()
     if not data.get("recepient_name"):
-        return jsonify({"error": "recipient name is required"}), 406
+        return jsonify({"error": "recipient name is required"}), 400
     elif not data.get("recepient_phone"):
-        return jsonify({"error": "recipient phone is required"}), 406
+        return jsonify({"error": "recipient phone is required"}), 400
     elif not data.get("recepient_country"):
-        return jsonify({"error": "recipient country is required"}), 406
+        return jsonify({"error": "recipient country is required"}), 400
     elif not data.get("recepient_destination"):
         return jsonify({"error": "recipient destination is required"}), 406
     elif not data.get("sender_id"):
-        return jsonify({"error": "sender is required"}), 406
+        return jsonify({"error": "sender is required"}), 400
     elif not data.get("location"):
-        return jsonify({"error": "sender location is required"}), 406
+        return jsonify({"error": "sender location is required"}), 400
     elif not data.get('weight'):
-        return jsonify({"error": "weight required"}), 406
+        return jsonify({"error": "weight required"}), 400
     elif not data.get('price'):
-        return jsonify({"error": "price required"}), 406
+        return jsonify({"error": "price required"}), 400
     save_parcel = parcel.add_parcel(data['sender_id'], 
         data['location'], 
         data['recepient_name'],
@@ -56,9 +56,9 @@ def get_parcel(id):
 def update_status(id):
     get_input = request.get_json()
     if not get_input.get("status"):
-        return jsonify({"error" : "status is required"}), 406
+        return jsonify({"error" : "status is required"}), 400
     if not get_input.get("sender"):
-        return jsonify({"error" : "sender is required"}), 406
+        return jsonify({"error" : "sender is required"}), 400
     parcel2 = parcel.search_parcel(id)
     if not parcel2:
         return jsonify({"message": 'parcel not found'}), 404
@@ -72,4 +72,4 @@ def update_status(id):
 @app2.route('/api/v1/parcels/sender/<int:sender_id>', methods=['GET'])
 def get_all_parcels_by_user(sender_id):
     sender_parcels = parcel.search_sender_parcels(sender_id)
-    return jsonify({'parcels': sender_parcels})
+    return jsonify({'parcels': sender_parcels}), 200

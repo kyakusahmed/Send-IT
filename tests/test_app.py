@@ -59,7 +59,7 @@ class OrderTest(unittest.TestCase):
             "recepient_phone": "25706196611",
             "sender_id": 1}
         response = self.app.post('/api/v1/parcels', json=required)
-        assert response.status_code == 406
+        assert response.status_code == 400
 
     def test_get_all_parcels_by_user(self):
         response = self.app.get('/api/v1/parcels/sender/1')
@@ -79,14 +79,14 @@ class OrderTest(unittest.TestCase):
         response =self.app.put('/api/v1/parcels/1', json={"status": "", "sender": 1})
         data = json.loads(response.get_data(as_text=True))
         assert data["error"] == "status is required"
-        assert response.status_code == 406
+        assert response.status_code == 400
 
     def test_sender_is_required(self):
         self.app.post('/api/v1/parcels', json=self.test_parcel)
         response =self.app.put('/api/v1/parcels/1', json={"status": "cancelled", "sender": ""})
         data = json.loads(response.get_data(as_text=True))
         assert data["error"] == "sender is required"
-        assert response.status_code == 406   
+        assert response.status_code == 400   
 
     def test_weight_required(self):
         required = { 
