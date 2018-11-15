@@ -55,6 +55,6 @@ omit =
     */numbers.py
     */uuid.py
     */app.py
-    */app/manage.py 
+    */app/parcel.py 
     
 show_missing = True
