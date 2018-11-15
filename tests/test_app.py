@@ -18,7 +18,6 @@ class OrderTest(unittest.TestCase):
             "sender_id": 1,
             "status":"pending"
             }
-            
 
     def test_get_all_parcels(self):
         response = self.app.get("/api/v1/parcels")
@@ -34,20 +33,14 @@ class OrderTest(unittest.TestCase):
     def test_update_status(self):
         self.app.post('/api/v1/parcels', json=self.test_parcel)
         response =self.app.put('/api/v1/parcels/1', json={"status": "pending", "sender": 1})
-        # data = json.loads(response.get_data(as_text=True))
         assert response.status_code == 404
-        # self.assertIsInstance(data, list)
-        
-        # self.assertEqual(json.loads(response.data.decode('utf-8'))['data']['status'], "cancelled")
 
     def test_update_status_not_found(self):
         self.app.post('/api/v1/parcels', json=self.test_parcel)
         response =self.app.get('/api/v1/parcels/12345')
         data = json.loads(response.get_data(as_text=True))
         assert data["message"] == "parcel not found"
-        assert response.status_code == 404  
-      
-            
+        assert response.status_code == 404
    
     def test_parcel_not_found(self):
         response =self.app.get('/api/v1/parcels/12345')
@@ -66,9 +59,7 @@ class OrderTest(unittest.TestCase):
             "recepient_phone": "25706196611",
             "sender_id": 1}
         response = self.app.post('/api/v1/parcels', json=required)
-        # data = json.loads(response.get_data(as_text=True))
-        # assert data["error"][0]['location'] == "sender location is required"
-        assert response.status_code == 200
+        assert response.status_code == 406
 
     def test_get_all_parcels_by_user(self):
         response = self.app.get('/api/v1/parcels/sender/1')
@@ -77,10 +68,10 @@ class OrderTest(unittest.TestCase):
         self.assertIsInstance(data['parcels'], list)
    
     def test_add_parcel(self):
-        response=self.app.post('/api/v1/parcels', json=self.test_parcel)
+        self.app.post('/api/v1/parcels', json=self.test_parcel)
+        response = self.app.get('/api/v1/parcels')
         data = json.loads(response.get_data(as_text=True))
         assert response.status_code == 200
-        # assert data['parcels']['sender_id'] == 1
         self.assertIsInstance(data, dict)
 
     def test_status_is_required(self):
@@ -88,14 +79,14 @@ class OrderTest(unittest.TestCase):
         response =self.app.put('/api/v1/parcels/1', json={"status": "", "sender": 1})
         data = json.loads(response.get_data(as_text=True))
         assert data["error"] == "status is required"
-        assert response.status_code == 200
+        assert response.status_code == 406
 
     def test_sender_is_required(self):
         self.app.post('/api/v1/parcels', json=self.test_parcel)
         response =self.app.put('/api/v1/parcels/1', json={"status": "cancelled", "sender": ""})
         data = json.loads(response.get_data(as_text=True))
         assert data["error"] == "sender is required"
-        assert response.status_code == 200    
+        assert response.status_code == 406   
 
     def test_weight_required(self):
         required = { 
@@ -109,8 +100,7 @@ class OrderTest(unittest.TestCase):
             "sender_id": 1}
         self.app.post('/api/v1/parcels', json=required)
         response =self.app.get('/api/v1/parcels')
-        assert response.status_code == 200  
-
+        assert response.status_code == 200 
 
     def test_price_required(self):
         required = { 
