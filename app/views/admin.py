@@ -12,7 +12,7 @@ app2.config['JWT_SECRET_KEY'] = 'super-secret'
 
 @app2.route('/api/v1/parcels/<int:parcel_id>/status', methods=["PUT"])
 @jwt_required
-def update_destination(parcel_id):
+def update_status(parcel_id):
     current_user = get_jwt_identity()
     if current_user[5] != "admin":
         return jsonify({"msg":"unauthorised access"}), 401
