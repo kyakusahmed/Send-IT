@@ -7,6 +7,12 @@ class User(DatabaseConnection):
         def __init__(self):
                 super().__init__()
 
+
+        def update_status(self, status, parcel_id):
+            command = "UPDATE parcels SET status = '%s' WHERE parcel_id = '%s'" % (status, parcel_id)
+            self.cursor.execute(command)
+            return "status updated"    
+
         def find_parcel(self, parcel_id):
                 command = """
                 SELECT * from parcels WHERE parcel_id ={}
@@ -77,5 +83,4 @@ class User(DatabaseConnection):
                     return 'user exists'    
             except Exception as ex:
                 return "failed {}".format(ex)        
-
 
