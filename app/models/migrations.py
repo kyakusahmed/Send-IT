@@ -1,4 +1,4 @@
-from app.models.connect import DatabaseConnection
+from app.models.connection import DatabaseConnection
 
 class Migration(DatabaseConnection):
 
@@ -8,13 +8,16 @@ class Migration(DatabaseConnection):
     def drop_tables(self):
         commands = (
         """ 
-        DROP TABLE  CASCADE
+        DROP TABLE  users CASCADE
+        """,
+        """
+        DROP TABLE ADMINS CASCADE
         """,
         """ 
-        DROP TABLE CASCADE
+        DROP TABLE menu CASCADE
         """,
         """ 
-        DROP TABLE  CASCADE
+        DROP TABLE  orders CASCADE
         """)
         for command in commands:
             self.cursor.execute(command)
@@ -25,6 +28,16 @@ class Migration(DatabaseConnection):
         """ create tables in the PostgreSQL database"""
         commands = (
         """ CREATE TABLE IF NOT EXISTS USERS (
+            USER_ID SERIAL PRIMARY KEY,
+            FIRST_NAME VARCHAR(50) NOT NULL,
+            LAST_NAME VARCHAR(50) NOT NULL,
+            EMAIL VARCHAR(50),
+            PASSWORD VARCHAR(50),
+            ROLE VARCHAR(25) NOT NULL,
+            CREATED_AT timestamp(6) without time zone
+            )
+        """,
+        """ CREATE TABLE IF NOT EXISTS ADMINS (
             USER_ID SERIAL PRIMARY KEY,
             FIRST_NAME VARCHAR(50) NOT NULL,
             LAST_NAME VARCHAR(50) NOT NULL,

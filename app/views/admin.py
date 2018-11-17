@@ -1,12 +1,11 @@
 from flask import Flask, jsonify, request
-from app.models.admin import Admin
-from re import match
+from app.models.user import User
 import datetime
+
 
 
 app2 = Flask(__name__)
 user = User()
-admin = Admin()
 
 @app2.route('/api/v1/admin/register', methods=['POST'])
 def register_admin():
@@ -28,23 +27,23 @@ def register_admin():
     if user_role not in user_roles:
         return jsonify({"error": " role {} doesnot exist".format(user_role)}), 200
 
-    new_user = (first_name, last_name , email, password, role, "")
-    resp = Admin().add_user(new_user)
-        if response == "failed":
-            return jsonify({"message": "failed"}), 400
-        elif resp == "user exists":
-            return jsonify({"message": "email is already being used"}), 400
-        else:
-            return jsonify({"msg": admin.register_admin(
-                data["first_name"].strip(),
-                data["last_name"].strip(),
-                data["email"].strip(),
-                data["password"].strip(),
-                data["role"].strip()
-                )}), 201
-            
+    new_user = ("first_name", 'last_name' , 'email', 'password', 'role')
+    resp = User().add_user(new_user)
+    if resp == "failed":
+        return jsonify({"message": "failed"}), 400
+    elif resp == "user exists":
+        return jsonify({"message": "email is already being used"}), 400
+    else:
+        return jsonify({"msg": user.register_user(
+            data["first_name"],
+            data["last_name"],
+            data["email"],
+            data["password"],
+            data["role"]
+            )}), 201
+        
 
-@app2.route('/api/v1/admin/login', methods=['POST'])
+@app2.route('/api/v1/admins/login', methods=['POST'])
 def login():
     data = request.get_json()
     email = request.json.get('email', None)

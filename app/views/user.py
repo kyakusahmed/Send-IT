@@ -1,18 +1,23 @@
 
 from flask import Flask, jsonify, request
-from app.models.admin import Admin
+from app.models.user import User
 from re import match
 import datetime
+
+from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,get_jwt_identity,jwt_optional)
+
 
 
 app2 = Flask(__name__)
 user = User()
-admin = Admin()
+jwt = JWTManager(app2)
+app2.config['JWT_SECRET_KEY'] = 'super-secret'
+
 
 @app2.route('/api/v1/users/register', methods=['POST'])
 def register_user():
     data = request.get_json()
-    required = ("first_name", "last_name", 'email', 'password', 'role')
+    required = ('first_name', 'last_name', 'email', 'password', 'role')
     if not set(required).issubset(set(data)):
         return jsonify({"error": "some fields are missing"}), 200
     if not bool(
@@ -29,20 +34,20 @@ def register_user():
     if user_role not in user_roles:
         return jsonify({"error": " role {} doesnot exist".format(user_role)}), 200
 
-    new_user = (first_name, last_name , email, password, role, "")
-    resp = Admin().add_user(new_user)
-        if response == "failed":
-            return jsonify({"message": "failed"}), 400
-        elif resp == "user exists":
-            return jsonify({"message": "email is already being used"}), 400
-        else:
-            return jsonify({"msg": admin.register_admin(
-                data["first_name"].strip(),
-                data["last_name"].strip(),
-                data["email"].strip(),
-                data["password"].strip(),
-                data["role"].strip()
-                )}), 201
+    new_user = ('first_name', 'last_name', 'email', 'password', 'role')
+    resp = User().add_user(new_user)
+    if resp == "failed":
+        return jsonify({"message": "failed"}), 400
+    elif resp == "user exists":
+        return jsonify({"message": "email registered alreADY"}), 400
+    else:
+        return jsonify({"msg": user.register_user(
+            data["first_name"].strip(),
+            data["last_name"].strip(),
+            data["email"].strip(),
+            data["password"].strip(),
+            "admin"
+            )}), 201
 
 
 @app2.route('/api/v1/users/login', methods=['POST'])
@@ -64,7 +69,7 @@ def login():
     if len(data["password"]) < 5:
         return jsonify({"msg":"passowrd is too short"}), 406 
 
-    check_user = user.login_user(email, password)
+    check_user = User().user_signin(email, password)
     if not check_user:
         return jsonify({"msg":"register first"}), 406
 

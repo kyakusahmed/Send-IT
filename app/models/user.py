@@ -9,7 +9,7 @@ class User(DatabaseConnection):
     def register_user(self, first_name, last_name, email, password, role):
         try:
             command = """
-            INSERT INTO USERS (first_name, last_name, email, password, role, created_at) VALUES('{}','{}','{}','{}','{}','{}')
+            INSERT INTO users (first_name, last_name, email, password, role, created_at) VALUES('{}','{}','{}','{}','{}','{}')
             """.format( first_name, last_name, email, password, role, datetime.now())
             self.cursor.execute(command)
             return "user registered successfully"
@@ -26,6 +26,17 @@ class User(DatabaseConnection):
             return user1
         except Exception as ex:
             return "failed {}".format(ex)
+
+    def admin_signin(self, email, password):
+        try:
+            command = """
+            SELECT * FROM users WHERE email= '{}' AND password = '{}'
+            """.format(email, password)
+            self.cursor.execute(command)
+            user1 = self.cursor.fetchone()
+            return user1
+        except Exception as ex:
+            return "failed {}".format(ex)        
 
     def get_user_by_email(self, email):
         try:
