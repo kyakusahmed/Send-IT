@@ -1,4 +1,6 @@
 sen
 __pycache__
-.pytest_cache
 .vscode
+.pytest_cache
+
+
