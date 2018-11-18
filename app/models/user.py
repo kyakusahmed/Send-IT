@@ -1,14 +1,10 @@
-
-
 from app.models.connection import DatabaseConnection
 from datetime import datetime
-
 
 class User(DatabaseConnection):
         def __init__(self):
                 super().__init__()
-
-
+        
         def update_status(self, status, parcel_id):
             command = "UPDATE parcels SET status = '%s' WHERE parcel_id = '%s'" % (status, parcel_id)
             self.cursor.execute(command)
@@ -92,9 +88,6 @@ class User(DatabaseConnection):
               self.cursor.execute(command)
               return self.cursor.fetchall()
 
-
-
-
         def parcel(self, user_id):
                 try:
                     command = """
@@ -120,4 +113,10 @@ class User(DatabaseConnection):
           destination, weight, price, status, str(datetime.now()))
           self.cursor.execute(command)
           return "parcel delivery order is placed"
+        
+        def update_current_location(self, current_location, parcel_id):
+          command = "UPDATE parcels SET current_location = '%s' WHERE parcel_id = '%s'" % (status, parcel_id)
+          self.cursor.execute(command)
+          return "status updated"    
+
 

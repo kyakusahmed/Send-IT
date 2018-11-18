@@ -1,17 +1,3 @@
-
-
-                data["sender_phone"].strip(),
-                data["pickup_location"].strip(),
-                data["recepient_name"].strip(),
-                data["recepient_phone"].strip(),
-                data["recepient_country"].strip(),
-                data["destination"].strip(),
-                data["weight"].strip()
-                data["price"].strip()
-                data["status"].strip()
-                datetime.datetime.now()
-                )}), 201        
-
 from flask import Flask, jsonify, request
 from app.models.user import User
 from re import match
@@ -229,4 +215,17 @@ def user_place_order():
                 data["status"].strip()
                 datetime.datetime.now()
                 )}), 201        
+                                        
+@app2.route('/api/v1/parcels/<int:parcel_id>/current_location', methods=["PUT"])
+@jwt_required
+def update_curremt_location(parcel_id):
+    current_user = get_jwt_identity()
+    if current_user[5] != "admin":
+        return jsonify({"msg":"unauthorised access"}), 401
+    else:
+        get_input = request.get_json()
+        if not get_input.get("current_location").strip():
+            return jsonify({"error" : "current_location is required"}), 400
+        return jsonify({"parcel" : user.current_location(parcel_id, get_input["current_location"])}), 200                                        
+                                        
               
