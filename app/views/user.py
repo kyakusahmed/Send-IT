@@ -1,3 +1,4 @@
+
 from flask import Flask, jsonify, request
 from app.models.user import User
 from re import match
@@ -174,3 +175,7 @@ def admin_login():
     access_token = create_access_token(identity=check_user)
     return jsonify(access_token=access_token, msg="Login successful"), 200
    
+@app2.route('/api/v1/parcels/users/<int:user_id>', methods=['GET'])
+def view_user_parcels_history(user_id):
+    user_parcels = user.view_parcel_history(user_id)
+    return jsonify({'parcels': user_parcels})
