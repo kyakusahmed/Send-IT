@@ -3,15 +3,17 @@ from .base_test import BaseTest
 
 class UserTest(BaseTest):
        
-    def test_register_user_successful(self):
-        data = {
-           "first_name":"james",
-	       "last_name":"dinho",
-	       "email":"yoobmed@outlook.com",
-	       "password":"123456"
-        }
-        response = self.app1.post('/api/v1/users/register', content_type="application/json",  data=json.dumps(data))
-        self.assertEqual(response.status_code, 200)
+    # def test_user_register(self):
+    #     data = {
+    #        "first_name":"ahmed",
+	#        "last_name":"kyakus",
+	#        "email":"kyakus@outlook.com",
+	#        "password":"123456"
+	       
+    #        }
+    #     response = self.app1.post('/api/v1/users/register', json=data)
+    #     # self.assertEqual(response.status_code, 201)
+    #     assert json.loads(response.data)['message'] == "user registered successfully"
         
 
     def test_user_login(self):
