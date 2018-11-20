@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/kyakusahmed/Send-IT.svg?branch=challenge-3%2FDB)](https://travis-ci.org/kyakusahmed/Send-IT)
+
+
+
 # sendIT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
