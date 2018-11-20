@@ -34,7 +34,9 @@ class Migration(DatabaseConnection):
         """,
         """ CREATE TABLE IF NOT EXISTS PARCELS (
             PARCEL_ID  SERIAL PRIMARY KEY UNIQUE,
-            USER_ID INTEGER REFERENCES USERS(USER_ID),
+            user_id INTEGER REFERENCES USERS(USER_ID),
+            SENDER_NAME VARCHAR(50) NOT NULL,
+            SENDER_PHONE VARCHAR(50) NOT NULL,
             PICKUP_LOCATION VARCHAR(50) NOT NULL,
             RECEPIENT_NAME VARCHAR(50) NOT NULL,
             RECEPIENT_PHONE VARCHAR(50) NOT NULL,
@@ -43,6 +45,7 @@ class Migration(DatabaseConnection):
             WEIGHT VARCHAR(50),
             PRICE VARCHAR(50),
             STATUS VARCHAR(25) NOT NULL,
+            CURRENT_LOCATION VARCHAR(50),
             CREATED_AT timestamp(6) without time zone
             )
         """

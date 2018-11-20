@@ -6,22 +6,22 @@ class User(DatabaseConnection):
                 super().__init__()
         
         def update_status(self, status, parcel_id):
-            command = "UPDATE parcels SET status = '%s' WHERE parcel_id = '%s'" % (status, parcel_id)
+            command = "UPDATE parcels SET status = '%s' WHERE parcel_id = '%s'" % (parcel_id, status)
             self.cursor.execute(command)
             return "status updated"    
 
         def find_parcel(self, parcel_id):
-                command = """
-                SELECT * from parcels WHERE parcel_id ={}
-                """.format(parcel_id)
-                self.cursor.execute(command)
-                data = self.cursor.fetchone()
-                return dataat
+            command = """
+            SELECT * from parcels WHERE parcel_id ={}
+            """.format(parcel_id)
+            self.cursor.execute(command)
+            data = self.cursor.fetchone()
+            return data
 
         def update_parcel_destination(self, destination, parcel_id):
-                command = "UPDATE parcels SET destination = '%s' WHERE parcel_id = '%s'" % (destination, parcel_id)
-                self.cursor.execute(command)
-                return "status updated"        
+            command = "UPDATE parcels SET destination = '%s' WHERE parcel_id = '%s'" % (parcel_id, destination)
+            self.cursor.execute(command)
+            return "destination updated"        
 
 
         def register_user(self, first_name, last_name, email, password, role):
@@ -56,67 +56,84 @@ class User(DatabaseConnection):
             except Exception as ex:
                 return "failed {}".format(ex)        
 
-        def get_user_by_email(self, email):
+        def get_user_by_ID(self, user_id):
             try:
                 command = """
-                SELECT * FROM users WHERE email='{}'
-                """.format(email)
+                SELECT * FROM users WHERE user_id='{}'
+                """.format(user_id)
                 self.cursor.execute(command)
-                email = self.cursor.fetchone()
-                return email 
+                user = self.cursor.fetchone()
+                return user 
             except Exception as ex:
                 return "failed {}".format(ex)
 
+        def get_user_by_email(self, email):
+            command = """
+            SELECT * FROM users WHERE email='{}'
+            """.format(email)
+            self.cursor.execute(command)
+            user = self.cursor.fetchone()
+            return user
+
         def add_user(self, user):
             try:
-                if self.get_user_by_email(user.email) == 'failed':
-                    command = """INSERT INTO Users (first_name, last_name , email, password, role, "")
-                                VALUES (DEFAULT, %s, %s, %s, %s, %s) RETURNING first_name, last_name , email, password, role ;
-                                """
-                    self.cursor.execute(command)
-                    user = self.cursor.fetchone()
-                    return user
-                else:
-                    return 'user exists'    
+                command = """INSERT INTO Users (first_name, last_name , email, password, created_at)
+                            VALUES (DEFAULT, %s, %s, %s, %s, %s) RETURNING first_name, last_name , email, password, datetime.now();
+                            """
+
+                self.cursor.execute(command)
+                user = self.cursor.fetchone()
+                return user
             except Exception as ex:
                 return "failed {}".format(ex)        
               
-       def view_parcel_history(self, user_id):
-              command = """
-              SELECT * from parcels WHERE user_id = {}
-              """.format(user_id)
-              self.cursor.execute(command)
-              return self.cursor.fetchall()
+        def view_parcel_history(self, user_id):
+            command = """
+            SELECT * from parcels WHERE user_id = {}
+            """.format(user_id)
+            self.cursor.execute(command)
+            parcels = self.cursor.fetchall()
+            return parcels
 
-        def parcel(self, user_id):
+        def delete_parcel(self, user_id):
                 try:
                     command = """
                     DELETE from parcels WHERE parcel_id = {}
                     """.format(parcel_id)
                     self.cursor.execute(command)
-                    return  "data deleted"
+                    return "data deleted"
                 except Exception as ex:
                     return "failed {}".format(ex)   
 
         def view_all_parcels(self):
-          command = """
-          select row_to_json(row) from (SELECT * FROM parcels) row 
-          """
-          self.cursor.execute(command)
-          return self.cursor.fetchall()
+            command = """
+            SELECT * FROM parcels 
+            """
+            
+            self.cursor.execute(command)
+            results= self.cursor.fetchall()
+            return results
 
-        def place_parcel_delivery_order(self, user_id, pickup_location, recepient_name, recepient_phone, recepient_country, 
-                                        destination, weight, price, status, created_at):
-          command = """INSERT INTO parcels (user_id, pickup_location, recepient_name, recepient_phone, recepient_country, 
-          destination, weight, price, status, created_at)  VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}')
-          """.format(user_id, pickup_location, recepient_name, recepient_phone, ecepient_country, 
-          destination, weight, price, status, str(datetime.now()))
-          self.cursor.execute(command)
-          return "parcel delivery order is placed"
+        def place_parcel_delivery_order(self, user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
+                                        destination, weight, status):
+            command = """INSERT INTO parcels (user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
+            destination, weight, status, created_at)  VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}')
+            """.format(user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
+            destination, weight, status, datetime.now())
+            self.cursor.execute(command)
+            return "successful"
         
         def update_current_location(self, current_location, parcel_id):
-          command = "UPDATE parcels SET current_location = '%s' WHERE parcel_id = '%s'" % (status, parcel_id)
-          self.cursor.execute(command)
-          return "status updated"    
+            command = "UPDATE parcels SET current_location = '%s' WHERE parcel_id = '%s'" % (parcel_id, current_location)
+            self.cursor.execute(command)
+            return "current_location updated" 
+
+        def update_user_to_admin(self, user_id, role):
+            command = "UPDATE users SET role = '%s' WHERE user_id = '%s'" % (role, user_id)
+            self.cursor.execute(command)
+            return "Role updated" 
+
+            
+
 
 

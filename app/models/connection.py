@@ -4,8 +4,7 @@ import os
 class DatabaseConnection:
  
     def __init__(self):
-        
-        if os.getenv('APP_SETTINGS') == 'test_db':
+        if os.getenv('APP_SETTINGS') == 'testing':
             self.db = 'test_db'
         else:
             self.db = 'sendit'
@@ -17,9 +16,10 @@ class DatabaseConnection:
             # self.conn.autocommit = True
             # self.cursor = self.conn.cursor()
             # print("connected")
+            print(self.db)
 
             self.conn = psycopg2.connect(
-            database="sendit", user="postgres", password="1988", port="5432", host="127.0.0.1"
+            database=self.db, user="postgres", password="1988", port="5432", host="127.0.0.1"
             )
             self.conn.autocommit = True
             self.cursor = self.conn.cursor()
