@@ -1,0 +1,32 @@
+Authentication docs
+---
+tags:
+  - {}
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    type: object
+    description: This endpoint is for user login. The user provides  email and password to login
+
+    schema:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          example: ahmed@outlook.com
+          type: string
+        password:
+          example: 1a23456
+          type: string
+responses:
+  200:
+    description: The user provides  email and password  to login
+  400:
+    description: Empty password or email field.
+
