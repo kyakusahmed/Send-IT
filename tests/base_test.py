@@ -32,4 +32,7 @@ class BaseTest(unittest.TestCase):
     # def tearDown(self):
     #     self.migration.drop_tables([users, parcels])
 
-    
+    # def create_tables():
+    #     self.migration.create_tables([users, parcels])
+
+      

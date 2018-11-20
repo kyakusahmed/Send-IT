@@ -109,7 +109,6 @@ class User(DatabaseConnection):
             command = """
             SELECT * FROM parcels 
             """
-            
             self.cursor.execute(command)
             results= self.cursor.fetchall()
             return results
