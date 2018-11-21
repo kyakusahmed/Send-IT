@@ -79,7 +79,7 @@ def get_all_parcels():
                 })
         return jsonify({"parcels": new_list}), 200
 
-@app2.route('/api/v1/users/<int:user_id>', methods=['PUT'])
+@app2.route('/api/v1/parcels/<int:user_id>', methods=['PUT'])
 @jwt_required
 def update_user_to_admin(user_id):
     get_user = user.get_user_by_ID(user_id)

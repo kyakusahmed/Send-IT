@@ -124,7 +124,7 @@ class UserTest(BaseTest):
         }
         self.app1.post('/api/v1/parcels',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
         data = {"role":"admin"}
-        response = self.app1.put('/api/v1/users/roles/1',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
+        response = self.app1.put('/api/v1/parcels/1',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
         self.assertEqual(data['message'], "User role updated successfuly")
         assert response.status_code == 200 
