@@ -17,7 +17,7 @@ class UserTest(BaseTest):
                 "status":"pending"
                 }
         self.app1.post('/api/v1/parcels', content_type="application/json", headers={"Authorization": "Bearer " + token},  data=json.dumps(parcel))
-        response = self.app1.put('/api/v1/parcels/1/status',content_type="application/json", headers={"Authorization": "Bearer " + token},
+        response = self.app1.put('/api/v1/parcels/1',content_type="application/json", headers={"Authorization": "Bearer " + token},
             json={"status": "delivered"})
         print(response)
         assert response.status_code == 401
@@ -39,13 +39,13 @@ class UserTest(BaseTest):
         }
         self.app1.post('/api/v1/parcels',content_type="application/json", data=json.dumps(data))
         data = {"current_location":"eldoret"}
-        response = self.app1.put('/api/v1/parcels/1/current_location',content_type="application/json", data=json.dumps(data))
+        response = self.app1.put('/api/v1/parcels/1',content_type="application/json", data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
         self.assertEqual(data['msg'], "Missing Authorization Header")
         assert response.status_code == 401  
 
     def test_get_all_parcels_without_token(self):
-        response = self.app1.get('/api/v1/parcels/admin')
+        response = self.app1.get('/api/v1/parcels')
         data = json.loads(response.get_data(as_text=True))
         self.assertEqual(data['msg'], "Missing Authorization Header")
         assert response.status_code == 401 
@@ -65,7 +65,7 @@ class UserTest(BaseTest):
         }
         self.app1.post('/api/v1/parcels',content_type="application/json", data=json.dumps(data))
         data = {"status":"cancelled"}
-        response = self.app1.put('/api/v1/parcels/1/status',content_type="application/json", data=json.dumps(data))
+        response = self.app1.put('/api/v1/parcels/1',content_type="application/json", data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
         print(data)
         self.assertEqual(data['msg'], "Missing Authorization Header")
@@ -73,19 +73,12 @@ class UserTest(BaseTest):
 
     def test_update_user_to_admin_without_token(self):
         data = {
-            "user_id": 1,
-            "sender_name" : "ahmad kyakulumbye",
-            "sender_phone" : "256706196611",
-            "pickup_location" : "busabala road-zone 1",
-            "recepient_name" : "muwonge badru",
-            "recepient_phone":"254704196613",
-            "recepient_country":"kenya",
-            "destination":"nairobi-main street-plot 20",
-            "weight": "50kg",
-            "price":"500shs",
-            "status":"pending"
+            "first_name":"ahmad",
+            "last_name":"john",
+            "email":"@outlook.com",
+            "password":"123456"
         }
-        self.app1.post('/api/v1/parcels',content_type="application/json", data=json.dumps(data))
+        self.app1.post('/api/v1/users',content_type="application/json", data=json.dumps(data))
         data = {"role":"admin"}
         response = self.app1.put('/api/v1/users/roles/1',content_type="application/json", data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
@@ -171,14 +164,14 @@ class UserTest(BaseTest):
                 "status":"pending"
                 }
         self.app1.post('/api/v1/parcels', headers={"Authorization": "Bearer " + token},  data=json.dumps(parcel))
-        response = self.app1.put('/api/v1/parcels/1/destination', content_type="application/json", headers={"Authorization": "Bearer " + token},
+        response = self.app1.put('/api/v1/parcels/1', content_type="application/json", headers={"Authorization": "Bearer " + token},
             data=json.dumps({"destination": "lubaga","parecl_id":1}))
         assert response.status_code == 200
         assert json.loads(response.data)['parcel'] == "destination updated"      
         
 
     def test_update_destination_without_token(self):
-        response =self.app1.put('/api/v1/parcels/1/destination', json={"destination": "lubaga","parecl_id":1})
+        response =self.app1.put('/api/v1/parcels/1', json={"destination": "lubaga","parecl_id":1})
         data = json.loads(response.get_data(as_text=True))
         assert response.status_code == 401
         self.assertEqual(data['msg'], "Missing Authorization Header")  

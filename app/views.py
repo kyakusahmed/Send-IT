@@ -12,7 +12,7 @@ user = User()
 jwt = JWTManager(app2)
 app2.config['JWT_SECRET_KEY'] = 'super-secret'
 
-@app2.route('/api/v1/parcels/<int:parcel_id>/status', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
 @jwt_required
 def admin_update_status(parcel_id):
     current_user = get_jwt_identity()
@@ -35,7 +35,7 @@ def admin_update_status(parcel_id):
                 return jsonify({"error" : "status is required"}), 400
             return jsonify({"parcel" : user.update_status(parcel_id, get_input["status"])}), 200
 
-@app2.route('/api/v1/parcels/<int:parcel_id>/current_location', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
 @jwt_required
 def update_current_location(parcel_id):
     current_user = get_jwt_identity()
@@ -51,7 +51,7 @@ def update_current_location(parcel_id):
                 return jsonify({"error" : "current_location is required"}), 400
             return jsonify({"parcel" : user.update_current_location(parcel_id, get_input["current_location"])}), 200
 
-@app2.route('/api/v1/parcels/admin', methods=['GET'])
+@app2.route('/api/v1/parcels', methods=['GET'])
 @jwt_required
 def get_all_parcels():
     current_user = get_jwt_identity()
@@ -79,7 +79,7 @@ def get_all_parcels():
                 })
         return jsonify({"parcels": new_list}), 200
 
-@app2.route('/api/v1/users/roles/<int:user_id>', methods=['PUT'])
+@app2.route('/api/v1/users/<int:user_id>', methods=['PUT'])
 @jwt_required
 def update_user_to_admin(user_id):
     get_user = user.get_user_by_ID(user_id)
@@ -158,7 +158,7 @@ def login():
     return jsonify({'message':"Login successful", 'access_token':access_token}), 200
 
             
-@app2.route('/api/v1/parcels/<int:parcel_id>/destination', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
 @jwt_required
 def update_destination(parcel_id):
     get_input = request.get_json()
