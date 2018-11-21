@@ -4,30 +4,27 @@ from .base_test import BaseTest
 class AdminTest(BaseTest):
        
     
-    # def test_update_status(self):
-    #     token = self.return_user_token()
-    #     admin_token = self.return_admin_token()
-    #     parcel= {
+    def test_update_status(self):
+        token = self.return_admin_token()
+        parcel= {
+                "sender_name" : "ahmad kyakulumbye",
+                "sender_phone" : "256706196611",
+                "pickup_location" : "busabala road-zone 1",
+                "recepient_name" : "muwonge badru",
+                "recepient_phone":"254704196613",
+                "recepient_country":"kenya",
+                "destination":"nairobi-main street-plot 20",
+                "weight": "50kg",
+                "status":"pending"
+                }
+        self.app1.post('/api/v1/parcels', content_type="application/json", headers={"Authorization": "Bearer " + token},  data=json.dumps(parcel))
+        response = self.app1.put('/api/v1/parcels/1/status',content_type="application/json", headers={"Authorization": "Bearer " + token},
+            json={"status": "delivered"})
+        print(response)
+        assert response.status_code == 401
+        assert json.loads(response.data)['msg'] == "unauthorised access"    
 
-    #             "user_id": 1,
-    #             "sender_name" : "ahmad kyakulumbye",
-    #             "sender_phone" : "256706196611",
-    #             "pickup_location" : "busabala road-zone 1",
-    #             "recepient_name" : "muwonge badru",
-    #             "recepient_phone":"254704196613",
-    #             "recepient_country":"kenya",
-    #             "destination":"nairobi-main street-plot 20",
-    #             "weight": "50kg",
-    #             "price":"500shs",
-    #             "status":"pending"
-    #             }
-    #     self.app1.post('/api/v1/parcels', headers={"Authorization": "Bearer " + token}, json=parcel)
-    #     response = self.app1.put('/api/v1/parcels/1/status',headers={"Authorization": "Bearer " + admin_token},
-    #         json={"status": "delivered"})
-    #     assert response.status_code == 200
-    #     assert json.loads(response.data)['parcel'] == "status updated"    
-
-    def test_update_current_location(self):
+    def test_update_current_location_without_location(self):
         data = {
             "user_id": 1,
             "sender_name" : "ahmad kyakulumbye",
@@ -65,7 +62,6 @@ class AdminTest(BaseTest):
             "recepient_country":"kenya",
             "destination":"nairobi-main street-plot 20",
             "weight": "50kg",
-            "price":"500shs",
             "status":"pending"
         }
         self.app1.post('/api/v1/parcels',content_type="application/json", data=json.dumps(data))
@@ -120,6 +116,9 @@ class AdminTest(BaseTest):
         response = self.app1.put('/api/v1/users/roles/1',content_type="application/json", data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True)) 
         self.assertEqual(data['msg'], "Role is required"), 400
+
+    # def test_unauthorised_acces(self):
+        
 
 
 

@@ -18,8 +18,10 @@ class BaseTest(unittest.TestCase):
 
     def return_admin_token(self):
         """admin token."""
-        self.app1.post('/api/v1/admins/register', json=admin_register)
-        response = self.app1.post('/api/v1/admins/login', json=admin_login)
+        self.app1.post('/api/v1/users/register', json=admin_register)
+        response = self.app1.post('/api/v1/users/login', json=admin_login)
+        data = json.loads(response.data)
+        print(data)
         return json.loads(response.data)['access_token']
 
     def return_user_token(self):
@@ -28,6 +30,7 @@ class BaseTest(unittest.TestCase):
         response = self.app1.post('/api/v1/users/login', json=user_login)
         data = json.loads(response.data)
         return json.loads(response.data)['access_token']
+        
 
     # def tearDown(self):
     #     self.migration.drop_tables([users, parcels])
