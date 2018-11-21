@@ -1,7 +1,6 @@
 import unittest
 import json
-from app.views.user import app2
-from app.views.admin import app2
+from app.views import app2
 from app.models.migrations import Migration
 from .import user_register, admin_register, admin_login, user_login
 
@@ -21,7 +20,6 @@ class BaseTest(unittest.TestCase):
         self.app1.post('/api/v1/users/register', json=admin_register)
         response = self.app1.post('/api/v1/users/login', json=admin_login)
         data = json.loads(response.data)
-        print(data)
         return json.loads(response.data)['access_token']
 
     def return_user_token(self):

@@ -5,8 +5,8 @@ class User(DatabaseConnection):
         def __init__(self):
                 super().__init__()
         
-        def update_status(self, status, parcel_id):
-            command = "UPDATE parcels SET status = '%s' WHERE parcel_id = '%s'" % (parcel_id, status)
+        def update_status(self,parcel_id,status):
+            command = "UPDATE parcels SET status = '%s' WHERE parcel_id = '%s'" % (status, parcel_id)
             self.cursor.execute(command)
             return "status updated"    
 
@@ -43,18 +43,7 @@ class User(DatabaseConnection):
                 user1 = self.cursor.fetchone()
                 return user1
             except Exception as ex:
-                return "failed {}".format(ex)
-
-        def admin_signin(self, email, password):
-            try:
-                command = """
-                SELECT * FROM users WHERE email= '{}' AND password = '{}'
-                """.format(email, password)
-                self.cursor.execute(command)
-                user1 = self.cursor.fetchone()
-                return user1
-            except Exception as ex:
-                return "failed {}".format(ex)        
+                return "failed {}".format(ex)  
 
         def get_user_by_ID(self, user_id):
             try:
@@ -93,17 +82,7 @@ class User(DatabaseConnection):
             """.format(user_id)
             self.cursor.execute(command)
             parcels = self.cursor.fetchall()
-            return parcels
-
-        def delete_parcel(self, user_id):
-                try:
-                    command = """
-                    DELETE from parcels WHERE parcel_id = {}
-                    """.format(parcel_id)
-                    self.cursor.execute(command)
-                    return "data deleted"
-                except Exception as ex:
-                    return "failed {}".format(ex)   
+            return parcels  
 
         def view_all_parcels(self):
             command = """
@@ -114,11 +93,11 @@ class User(DatabaseConnection):
             return results
 
         def place_parcel_delivery_order(self, user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
-                                        destination, weight, status):
+                                        destination, weight, price, status):
             command = """INSERT INTO parcels (user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
-            destination, weight, status, created_at)  VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}')
+            destination, weight, status, created_at)  VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}','{}')
             """.format(user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
-            destination, weight, status, datetime.now())
+            destination, weight, price, status, datetime.now())
             self.cursor.execute(command)
             return "successful"
         

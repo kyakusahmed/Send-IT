@@ -1,4 +1,5 @@
 from app.models.connection import DatabaseConnection
+import psycopg2
 
 class Migration(DatabaseConnection):
 
@@ -23,7 +24,7 @@ class Migration(DatabaseConnection):
         """ create tables in the PostgreSQL database"""
         commands = (
         """ CREATE TABLE IF NOT EXISTS USERS (
-            USER_ID SERIAL PRIMARY KEY,
+            USER_ID SERIAL PRIMARY KEY UNIQUE,
             FIRST_NAME VARCHAR(50) NOT NULL,
             LAST_NAME VARCHAR(50) NOT NULL,
             EMAIL VARCHAR(50) UNIQUE,
@@ -48,8 +49,13 @@ class Migration(DatabaseConnection):
             CURRENT_LOCATION VARCHAR(50),
             CREATED_AT timestamp(6) without time zone
             )
-        """
+        """,
+        """ INSERT INTO USERS(first_name, last_name, email, password, role)VALUES('ahmad','kyakus','crycetruly@gmail.com','813r312','admin')
+        """    
+        
         )
-
         for command in commands:
-            self.cursor.execute(command)
+            try:
+                self.cursor.execute(command)
+            except psycopg2.IntegrityError as identifier:
+                pass  

@@ -1,5 +1,4 @@
-from app.views.admin import app2
-from app.views.user import app2
+from app.views import app2
 from app.models.migrations import Migration
 
 
