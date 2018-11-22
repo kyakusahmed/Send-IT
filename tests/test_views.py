@@ -189,7 +189,7 @@ class UserTest(BaseTest):
         }
 
         token = self.return_user_token()
-        self.app1.post('/api/v1/users/register', headers={"Authorization": "Bearer " + token}, json=admin_register)
+        self.app1.post('/api/v1/users/register',content_type="application/json", data=json.dumps(admin_register))
         user_login = {
             "email":"ahmed@outlook.com",
             "password":"123456"
@@ -220,6 +220,7 @@ class UserTest(BaseTest):
 
     def test_get_parcels_with_token(self):
         token = self.return_admin_token()
+        token2 = self.return_admin_token()
         data = {
             "sender_name" : "ahmad kyakulumbye",
             "sender_phone" : "256706196611",
@@ -230,9 +231,31 @@ class UserTest(BaseTest):
             "destination":"nairobi-main street-plot 20",
             "weight": 50
         }
-        self.app1.post('/api/v1/parcels', headers={"Authorization": "Bearer " + token}, json=data)
+        self.app1.post('/api/v1/parcels',content_type="application/json",
+         headers={"Authorization": "Bearer " + token2},  data=json.dumps(data))
         response = self.app1.get('/api/v1/parcels', headers={"Authorization": "Bearer " + token})
-        print(response)
         assert response.status_code == 401
-        # self.assertIsInstance(json.loads(response.data)['parcel'], list)
+
+    def test_update_users_to_admin(self):
+        token = self.return_admin_token()
+        token2 = self.return_admin_token()
+      
+        data = {
+           "first_name":"ahmed",
+	       "last_name":"kyakus",
+	       "email":"kyakus@outlook.com",
+	       "password":"123456"
+        }
+        self.app1.post('/api/v1/users/register', json=data)
+        data1 = {"role":"admin"}
+        self.app1.post('/api/v1/users/register', json=data)
+
+        response = self.app1.put('/api/v1/users/1',content_type="application/json",
+        headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
+        data = json.loads(response.get_data(as_text=True))
+        assert response.status_code == 401
+
+
+        
+
 
