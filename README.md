@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/kyakusahmed/Send-IT.svg?branch=challenge-3%2FDB)](https://travis-ci.org/kyakusahmed/Send-IT)
+[![Coverage Status](https://coveralls.io/repos/github/kyakusahmed/Send-IT/badge.svg?branch=challenge-3%2FDB)](https://coveralls.io/github/kyakusahmed/Send-IT?branch=challenge-3%2FDB)
 
 
 
