@@ -255,6 +255,7 @@ class UserTest(BaseTest):
     #         content_type="application/json", data=json.dumps(parcel))
     #     response = self.app1.get('/api/v1/parcels/1',  headers={"Authorization": "Bearer " + token})
     #     data = json.loads(response.get_data())
+
     #     print(data)
     #     assert response.status_code == 200
     #     self.assertIsInstance(data['parcel'], list)
@@ -272,7 +273,7 @@ class UserTest(BaseTest):
            "first_name":"ahmed",
 	       "last_name":"kyakus",
 	       "email":"iogi@outlook.com",
-	       "password":"123456",
+	       "password":"123456"
            
            }
         response = self.app1.post('/api/v1/users/register', content_type = "application/json",  data=json.dumps(data))
@@ -288,7 +289,7 @@ class UserTest(BaseTest):
            }
         response = self.app1.post('/api/v1/users/register', content_type = "application/json",  data=json.dumps(data))
         # self.assertEqual(response.status_code, 200)
-        assert json.loads(response.data)['message'] =='User already registered.' 
+        assert json.loads(response.data)['message'] =='user registered already' 
 
 
 

@@ -115,7 +115,7 @@ def register_user():
     resp = User().add_user(new_user)
     registered = user.get_user_by_email(data['email'])
     if registered:
-        return jsonify(message="User already registered.")
+        return jsonify({"message": "user registered already"})
     if resp == "failed":
         return jsonify({"message": "failed"}), 400
     elif resp == "user exists":
