@@ -21,12 +21,7 @@ def admin_update_status(parcel_id):
     else:
         parcel = user.find_parcel(parcel_id)
         if not parcel:
-            return jsonify({"message" : "parcel not found"}), 400
-        data = request.get_json()    
-        status = data['status']
-        status_list = ["delivered", "cancelled"]
-        if not status in status_list:
-            return jsonify({"message":"status doesnot exist, use cancelled or delivered"}) 
+            return jsonify({"message" : "parcel not found"}), 400 
         if parcel[11]== "delivered":
             return jsonify({"message": 'parcel already delivered'}), 200      
         else:
@@ -35,7 +30,7 @@ def admin_update_status(parcel_id):
                 return jsonify({"error" : "status is required"}), 400
             return jsonify({"parcel" : user.update_status(parcel_id, get_input["status"])}), 200
 
-@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>/location', methods=["PUT"])
 @jwt_required
 def update_current_location(parcel_id):
     current_user = get_jwt_identity()
