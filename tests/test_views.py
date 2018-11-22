@@ -142,4 +142,59 @@ class UserTest(BaseTest):
         assert response.status_code == 401
         self.assertEqual(data['msg'], "Missing Authorization Header")  
 
-   
+
+    def test_user_register(self):
+        data = {
+           "first_name":"ahmed",
+	       "last_name":"kyakus",
+	       "email":"kyakus@outlook.com",
+	       "password":"123456",
+	       "role": "admin"
+           }
+
+ 
+        response = self.app1.post('/api/v1/users/register', json=data)
+        self.assertEqual(response.status_code, 200)
+        # assert json.loads(response.data)['message'] == "User added successfully"
+
+    def test_get_all_parcels(self):
+        token = self.return_user_token()
+        response = self.app1.get("/api/v1/parcels", headers={"Authorization": "Bearer " + token})
+        data = json.loads(response.get_data(as_text=True))
+        assert response.status_code == 200
+        self.assertIsInstance(data['parcels'], list)
+
+    def test_user_register_email_exist(self):
+        admin_register = {
+            "first_name": "amina",
+            "last_name": "joe",
+            "email": "amina@admin.com",
+            "password": "aminajoe",
+            "role": "admin"
+        }
+
+        token = self.return_user_token()
+        self.app1.post('/api/v1/users/register', headers={"Authorization": "Bearer " + token}, json=admin_register)
+        response = self.app1.post('/api/v1/users/register', headers={"Authorization": "Bearer " + token}, json=admin_register)
+        self.assertEqual(response.status_code, 200)
+        assert json.loads(response.data)['message'] == "user registered already"
+
+
+    def test_successful_user_login(self):
+        admin_register = {
+            "first_name": "amina",
+            "last_name": "joe",
+            "email":"ahmed@outlook.com",
+            "password":"123456",
+            "role": "admin"
+        }
+
+        token = self.return_user_token()
+        self.app1.post('/api/v1/users/register', headers={"Authorization": "Bearer " + token}, json=admin_register)
+        user_login = {
+            "email":"ahmed@outlook.com",
+            "password":"123456"
+        }
+        response = self.app1.post('/api/v1/users/login', headers={"Authorization": "Bearer " + token}, json=user_login)
+        self.assertEqual(response.status_code, 200)
+        assert json.loads(response.data)['message'] == 'Login successful'
