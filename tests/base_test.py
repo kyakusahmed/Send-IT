@@ -17,7 +17,6 @@ class BaseTest(unittest.TestCase):
 
     def return_admin_token(self):
         """admin token."""
-        self.app1.post('/api/v1/users/register', json=admin_register)
         response = self.app1.post('/api/v1/users/login', json=admin_login)
         data = json.loads(response.data)
         return json.loads(response.data)['access_token']

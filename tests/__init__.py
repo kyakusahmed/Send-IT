@@ -19,8 +19,8 @@ user_login = {
 }
 
 admin_login = {
-    "email": "amina@admin.com",
-    "password": "aminajoe"
+    "email": "crycetruly@gmail.com",
+    "password": "813r312"
 }
 
 parcel= {

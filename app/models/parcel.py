@@ -95,7 +95,7 @@ class User(DatabaseConnection):
         def place_parcel_delivery_order(self, user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
                                         destination, weight, price, status):
             command = """INSERT INTO parcels (user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
-            destination, weight, status, created_at)  VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}','{}')
+            destination, weight, status, created_at)  VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}')
             """.format(user_id, sender_name, sender_phone, pickup_location, recepient_name, recepient_phone, recepient_country, 
             destination, weight, price, status, datetime.now())
             self.cursor.execute(command)

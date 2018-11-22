@@ -79,7 +79,7 @@ def get_all_parcels():
                 })
         return jsonify({"parcels": new_list}), 200
 
-@app2.route('/api/v1/parcels/<int:user_id>', methods=['PUT'])
+@app2.route('/api/v1/users/<int:user_id>', methods=['PUT'])
 @jwt_required
 def update_user_to_admin(user_id):
     get_user = user.get_user_by_ID(user_id)
@@ -200,17 +200,17 @@ def user_place_parcel():
     if not set(required).issubset(set(data)):
         return jsonify({"error": "missing fields"}), 200    
     else:
-        price = 0
-        weight = data["weight"].strip()
-        if weight < 1:
-            price = 2000
-        elif weight < 5:
-            price = 5000
-        elif weight <= 20:
-            price = 10000
-        else:
-            weight <= 60
-            price = 30000 
+        # price = 0
+        # weight = data["weight"].strip()
+        # if weight < 1:
+        #     price = 2000
+        # elif weight < 5:
+        #     price = 5000
+        # elif weight <= 20:
+        #     price = 10000
+        # else:
+        #     weight <= 60
+        #     price = 30000 
                       
         return jsonify({"status": user.place_parcel_delivery_order(
             current_user[0],
@@ -222,7 +222,7 @@ def user_place_parcel():
             data["recepient_country"].strip(),
             data["destination"].strip(),
             data["weight"].strip(),
-            price,
+            50,
             "pending"
             )}), 201     
 
@@ -231,7 +231,6 @@ def user_place_parcel():
 @app2.route('/api/v1/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
 def get_parcel(parcel_id):
-    """get specific parcel."""
     parcel2 = user.find_parcel(parcel_id)
     if not parcel2:
         return jsonify({"status": 'parcel not found'}), 404
