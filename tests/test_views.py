@@ -143,19 +143,19 @@ class UserTest(BaseTest):
         self.assertEqual(data['msg'], "Missing Authorization Header")  
 
 
-    def test_user_register(self):
-        data = {
-           "first_name":"ahmed",
-	       "last_name":"kyakus",
-	       "email":"kyakus@outlook.com",
-	       "password":"123456",
-	       "role": "admin"
-           }
+    # def test_user_register(self):
+    #     data = {
+    #        "first_name":"ahmed",
+	#        "last_name":"kyakus",
+	#        "email":"kyakus@outlook.com",
+	#        "password":"123456",
+	#        "role": "admin"
+    #        }
 
  
-        response = self.app1.post('/api/v1/users/register', json=data)
-        self.assertEqual(response.status_code, 201)
-        # assert json.loads(response.data)['message'] == "User added successfully"
+    #     response = self.app1.post('/api/v1/users/register', json=data)
+    #     self.assertEqual(response.status_code, 201)
+    #     # assert json.loads(response.data)['message'] == "User added successfully"
 
     def test_get_all_parcels(self):
         token = self.return_user_token()
@@ -163,20 +163,20 @@ class UserTest(BaseTest):
         data = json.loads(response.get_data(as_text=True))
         assert response.status_code == 401
 
-    def test_user_register_email_exist(self):
-        admin_register = {
-            "first_name": "amina",
-            "last_name": "joe",
-            "email": "amina@admin.com",
-            "password": "aminajoe",
-            "role": "admin"
-        }
+    # def test_user_register_email_exist(self):
+    #     admin_register = {
+    #         "first_name": "amina",
+    #         "last_name": "joe",
+    #         "email": "amina@admin.com",
+    #         "password": "aminajoe",
+    #         "role": "admin"
+    #     }
 
-        token = self.return_user_token()
-        self.app1.post('/api/v1/users/register', json=admin_register)
-        response = self.app1.post('/api/v1/users/register', json=admin_register)
-        self.assertEqual(response.status_code, 201)
-        assert json.loads(response.data)['message'] == "user registered already"
+    #     token = self.return_user_token()
+    #     self.app1.post('/api/v1/users/register', json=admin_register)
+    #     response = self.app1.post('/api/v1/users/register', json=admin_register)
+    #     self.assertEqual(response.status_code, 201)
+    #     assert json.loads(response.data)['message'] == "user registered already"
 
 
     def test_successful_user_login(self):
@@ -197,26 +197,6 @@ class UserTest(BaseTest):
         response = self.app1.post('/api/v1/users/login', headers={"Authorization": "Bearer " + token}, json=user_login)
         self.assertEqual(response.status_code, 200)
         assert json.loads(response.data)['message'] == 'Login successful'
-
-
-    def test_get_parcel(self):
-        token = self.return_user_token()
-        data = {
-            "sender_name" : "ahmad kyakulumbye",
-            "sender_phone" : "256706196611",
-            "pickup_location" : "busabala road-zone 1",
-            "recepient_name" : "muwonge badru",
-            "recepient_phone":"254704196613",
-            "recepient_country":"kenya",
-            "destination":"nairobi-main street-plot 20",
-            "weight": 50
-
-        }
-        self.app1.post('/api/v1/parcels', headers={"Authorization": "Bearer " + token}, json=data)
-        response = self.app1.get('/api/v1/parcels/1', headers={"Authorization": "Bearer " + token})
-        print(response)
-        assert response.status_code == 200
-        self.assertIsInstance(json.loads(response.data)['parcel'], list)
 
     def test_get_parcels_with_token(self):
         token = self.return_admin_token()
