@@ -197,3 +197,23 @@ class UserTest(BaseTest):
         response = self.app1.post('/api/v1/users/login', headers={"Authorization": "Bearer " + token}, json=user_login)
         self.assertEqual(response.status_code, 200)
         assert json.loads(response.data)['message'] == 'Login successful'
+
+
+    def test_get_parcel(self):
+        token = self.return_user_token()
+        data = {
+            "sender_name" : "ahmad kyakulumbye",
+            "sender_phone" : "256706196611",
+            "pickup_location" : "busabala road-zone 1",
+            "recepient_name" : "muwonge badru",
+            "recepient_phone":"254704196613",
+            "recepient_country":"kenya",
+            "destination":"nairobi-main street-plot 20",
+            "weight": "50kg",
+            "price":"500shs",
+            "status":"pending"
+        }
+        self.app1.post('/api/v1/parcels', headers={"Authorization": "Bearer " + token}, json=data)
+        response = self.app1.get('/api/v1/parcels/1', headers={"Authorization": "Bearer " + token})
+        assert response.status_code == 200
+        self.assertIsInstance(json.loads(response.data)['parcel'], list)
