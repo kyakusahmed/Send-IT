@@ -29,4 +29,69 @@ As an Admin:
 - admin can logout
 
 
+### How to run the app
+
+
+Make sure that python 3.4/3.5/3.6/3.7 is installed on your computer
+
+Clone the repo
+```
+git clone https://github.com/kyakusahmed/Send-IT.git
+```
+Change to the app directory
+```
+$ cd sendIT
+```
+Create a virtual enviroment
+```
+virtualenv (name)
+```
+Activate the virtualenv
+```
+For Windows:
+	$ (virtualenv name)\scripts\activate, and  	
+For Linux: 
+ 	$source(virtualenv name)/bin/activate
+```
+Install the required modules from the requirements.txt file 
+```
+$ pip install -r requirements.txt
+```
+Run the app
+```
+$ python run.py
+```
+
+| tasks               |    URLS                |  METHOD  |         PARAMS                                | 
+| ------------------- | -----------------------|----------|-----------------------------------------------|
+| get all parcels     | api/v1/parcels         |  GET     |   ---------------                             |
+|                     |                        |          |                                               |
+| get a specific      | api/v1/parcels/id      |  GET     |  id                                           |
+| parcel order        |                        |          |                                               |
+|                     |                        |          |                                               |
+| user posts a parcel | api/v1/parcels         |  POST    | country, recepient_destination, price, weight | 
+|                     |                        |          | location, recepient_name, recepient_phone,    | 
+|	              |			       |	  | recepient_country, sender_id, status          | 
+|                     |                        |          |                                               |
+| user updates parcel | api/v1/parcels/id      |  PUT     | status, sender                                       |
+|                     |                        |          |                                               |
+| Fetch all parcel    | api/v1/users/user_id/  |  GET     | user_id                                       |
+| delivery orders     | parcels                |          |                                               |
+| by a specific user  |                        |          |                                               |
+                                        
+	
+### How to run the Tests:
+
+ open the terminal,activate virtual enviroment in the sendIT directory  and enter:
+ ```
+ $ pytest
+```
+ using nosetest  in open the terminal,activate virtual enviroment in the sendIT directory and enter:
+ ```
+ $ nosetests --with-coverage --cover-tests
+ ```
+
+
+
+
 
