@@ -217,3 +217,22 @@ class UserTest(BaseTest):
         print(response)
         assert response.status_code == 200
         self.assertIsInstance(json.loads(response.data)['parcel'], list)
+
+    def test_get_parcels_with_token(self):
+        token = self.return_admin_token()
+        data = {
+            "sender_name" : "ahmad kyakulumbye",
+            "sender_phone" : "256706196611",
+            "pickup_location" : "busabala road-zone 1",
+            "recepient_name" : "muwonge badru",
+            "recepient_phone":"254704196613",
+            "recepient_country":"kenya",
+            "destination":"nairobi-main street-plot 20",
+            "weight": 50
+        }
+        self.app1.post('/api/v1/parcels', headers={"Authorization": "Bearer " + token}, json=data)
+        response = self.app1.get('/api/v1/parcels', headers={"Authorization": "Bearer " + token})
+        print(response)
+        assert response.status_code == 401
+        # self.assertIsInstance(json.loads(response.data)['parcel'], list)
+
