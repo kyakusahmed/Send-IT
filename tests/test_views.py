@@ -154,7 +154,7 @@ class UserTest(BaseTest):
 
  
         response = self.app1.post('/api/v1/users/register', json=data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         # assert json.loads(response.data)['message'] == "User added successfully"
 
     def test_get_all_parcels(self):
@@ -175,7 +175,7 @@ class UserTest(BaseTest):
         token = self.return_user_token()
         self.app1.post('/api/v1/users/register', json=admin_register)
         response = self.app1.post('/api/v1/users/register', json=admin_register)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         assert json.loads(response.data)['message'] == "user registered already"
 
 
@@ -248,14 +248,10 @@ class UserTest(BaseTest):
         }
         self.app1.post('/api/v1/users/register', json=data)
         data1 = {"role":"admin"}
-        self.app1.post('/api/v1/users/register', json=data)
-
         response = self.app1.put('/api/v1/users/1',content_type="application/json",
-        headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
+        headers={"Authorization": "Bearer " + token}, data=json.dumps(data1))
         data = json.loads(response.get_data(as_text=True))
         assert response.status_code == 401
 
-
-        
 
 

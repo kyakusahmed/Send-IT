@@ -30,7 +30,7 @@ def admin_update_status(parcel_id):
                 return jsonify({"error" : "status is required"}), 400
             return jsonify({"parcel" : user.update_status(parcel_id, get_input["status"])}), 200
 
-@app2.route('/api/v1/parcels/<int:parcel_id>/location', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
 @jwt_required
 def update_current_location(parcel_id):
     current_user = get_jwt_identity()
@@ -109,15 +109,15 @@ def register_user():
     if len(data["password"].strip()) < 5:
         return jsonify({"error":"passowrd is too short"}), 406
 
-    new_user = ('first_name', 'last_name', 'email', 'password', "")
-    resp = User().add_user(new_user)
+    new_user = ('first_name', 'last_name', 'email', 'password')
+    resp = user.add_user(new_user)
     registered = user.get_user_by_email(data['email'])
     if registered:
-        return jsonify({"message": "user registered already"})
-    if resp == "failed":
-        return jsonify({"message": "failed"}), 400
-    elif resp == "user exists":
-        return jsonify({"message": "user registered already"}), 400
+        return jsonify({"message": "user registered already"}), 201
+    # if resp == "failed":
+    #     return jsonify({"message": "failed"}), 400
+    # elif resp == "user exists":
+    #     return jsonify({"message": "user registered already"}), 400
     else:
         return jsonify({"status": user.register_user(
             data["first_name"].strip(),
@@ -219,7 +219,7 @@ def user_place_parcel():
             data["recepient_phone"].strip(),
             data["recepient_country"].strip(),
             data["destination"].strip(),
-            data["weight"].strip(),
+            data["weight"],
             50,
             "pending"
             )}), 201     
