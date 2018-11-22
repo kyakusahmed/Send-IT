@@ -161,8 +161,7 @@ class UserTest(BaseTest):
         token = self.return_user_token()
         response = self.app1.get("/api/v1/parcels", headers={"Authorization": "Bearer " + token})
         data = json.loads(response.get_data(as_text=True))
-        assert response.status_code == 200
-        self.assertIsInstance(data['parcels'], list)
+        assert response.status_code == 401
 
     def test_user_register_email_exist(self):
         admin_register = {
@@ -174,8 +173,8 @@ class UserTest(BaseTest):
         }
 
         token = self.return_user_token()
-        self.app1.post('/api/v1/users/register', headers={"Authorization": "Bearer " + token}, json=admin_register)
-        response = self.app1.post('/api/v1/users/register', headers={"Authorization": "Bearer " + token}, json=admin_register)
+        self.app1.post('/api/v1/users/register', json=admin_register)
+        response = self.app1.post('/api/v1/users/register', json=admin_register)
         self.assertEqual(response.status_code, 200)
         assert json.loads(response.data)['message'] == "user registered already"
 
