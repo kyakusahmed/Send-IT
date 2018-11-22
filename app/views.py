@@ -82,6 +82,9 @@ def get_all_parcels():
 @app2.route('/api/v1/users/<int:user_id>', methods=['PUT'])
 @jwt_required
 def update_user_to_admin(user_id):
+    current_user = get_jwt_identity()
+    if current_user[5] != "admin":
+        return jsonify({"message":"unauthorised access"}), 401
     get_user = user.get_user_by_ID(user_id)
     if not get_user:
         return jsonify(message="User Not Found"), 401
@@ -158,7 +161,7 @@ def login():
     return jsonify({'message':"Login successful", 'access_token':access_token}), 200
 
             
-@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>/destination', methods=["PUT"])
 @jwt_required
 def update_destination(parcel_id):
     get_input = request.get_json()
@@ -212,7 +215,7 @@ def user_place_parcel():
         #     weight <= 60
         #     price = 30000 
                       
-        return jsonify({"status": user.place_parcel_delivery_order(
+        return jsonify({"message": user.place_parcel_delivery_order(
             current_user[0],
             data["sender_name"].strip(),
             data["sender_phone"].strip(),
