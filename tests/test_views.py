@@ -59,28 +59,6 @@ class UserTest(BaseTest):
         self.assertEqual(data['msg'], "Missing Authorization Header")
         assert response.status_code == 401
 
-    def test_role_is_required(self):
-        token = self.return_admin_token()
-        data = {
-            "user_id": 1,
-            "sender_name" : "ahmad kyakulumbye",
-            "sender_phone" : "256706196611",
-            "pickup_location" : "busabala road-zone 1",
-            "recepient_name" : "muwonge badru",
-            "recepient_phone":"254704196613",
-            "recepient_country":"kenya",
-            "destination":"nairobi-main street-plot 20",
-            "weight": "50kg",
-            "price":"500shs",
-            "status":"pending"
-        }
-        self.app1.post('/api/v1/parcels',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
-        data = {"role":""}
-        response = self.app1.put('/api/v1/users/1',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
-        data = json.loads(response.get_data(as_text=True)) 
-        self.assertEqual(data['message'], "Role is required")
-        assert response.status_code == 400
-
 
     def test_user_login(self):
         data = {
