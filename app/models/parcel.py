@@ -27,7 +27,7 @@ class User(DatabaseConnection):
         def register_user(self, first_name, last_name, email, password, role):
             try:
                 command = """
-                INSERT INTO users (first_name, last_name, email, password, role, created_at) VALUES('{}','{}','{}','{}','{}','{}')
+                INSERT INTO USERS (first_name, last_name, email, password, role, created_at) VALUES('{}','{}','{}','{}','{}','{}')
                 """.format( first_name, last_name, email, password, role, datetime.now())
                 self.cursor.execute(command)
                 return "user registered successfully"
