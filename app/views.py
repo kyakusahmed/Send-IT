@@ -1,13 +1,15 @@
 from flask import Flask, jsonify, request
+from flasgger import Swagger, swag_from
 from re import match
 import datetime
 from .models.parcel import User
 
 
+
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,get_jwt_identity,jwt_optional)
 
 app2 = Flask(__name__)
-# Swagger(app2)
+Swagger(app2)
 user = User()
 jwt = JWTManager(app2)
 app2.config['JWT_SECRET_KEY'] = 'super-secret'
@@ -30,7 +32,7 @@ def admin_update_status(parcel_id):
                 return jsonify({"error" : "status is required"}), 400
             return jsonify({"parcel" : user.update_status(parcel_id, get_input["status"])}), 200
 
-@app2.route('/api/v1/parcels/<int:parcel_id>', methods=["PUT"])
+@app2.route('/api/v1/parcels/<int:parcel_id>/location', methods=["PUT"])
 @jwt_required
 def update_current_location(parcel_id):
     current_user = get_jwt_identity()
@@ -86,15 +88,18 @@ def update_user_to_admin(user_id):
     else:
         get_input = request.get_json()
         role = get_input.get('role')
+        roles = ["user","admin"]
+        if not role in roles:
+            return jsonify(message="role doesnt exist"), 400
         if not role:
             return jsonify(message="Role is required"), 400
         else:
-            user.update_user_to_admin(user_id, role)
+            user.update_user_to_admin(get_user[0], role)
             return jsonify(message = "User role updated successfuly"), 200
 
 
 @app2.route('/api/v1/users/register', methods=['POST'])
-# @swag_from("../docs/user/signup.yaml")
+@swag_from("docs/signup.yaml")
 def register_user():
     data = request.get_json()
     required = ('first_name', 'last_name', 'email', 'password')
@@ -129,7 +134,7 @@ def register_user():
 
 
 @app2.route('/api/v1/users/login', methods=['POST'])
-# @swag_from("../docs/user/login.yaml")
+@swag_from("docs/login.yaml")
 def login():
     data = request.get_json()
     email = request.json.get('email', None)
@@ -166,6 +171,7 @@ def update_destination(parcel_id):
    
 @app2.route('/api/v1/parcels/users/<int:user_id>', methods=['GET'])
 @jwt_required
+@swag_from('docs/get_parcels_by_user.yaml')
 def view_user_parcels_history(user_id):
     parcels = user.view_parcel_history(user_id)
     new_list = []
@@ -190,13 +196,14 @@ def view_user_parcels_history(user_id):
 
 @app2.route('/api/v1/parcels', methods=['POST'])
 @jwt_required
+# @swag_from('docs/place_order.yaml')
 def user_place_parcel():
     current_user = get_jwt_identity()
     data = request.get_json()
     required = ("sender_name", "sender_phone", "pickup_location", "recepient_name", "recepient_phone", 
     "recepient_country", "destination", "weight")
     if not set(required).issubset(set(data)):
-        return jsonify({"error": "missing fields"}), 200    
+        return jsonify({"error": "missing fields"}), 400    
     else:
         # price = 0
         # weight = data["weight"].strip()
@@ -228,19 +235,39 @@ def user_place_parcel():
 
 @app2.route('/api/v1/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
+@swag_from('docs/get_one_parcel.yaml')
 def get_parcel(parcel_id):
-    parcel2 = user.find_parcel(parcel_id)
-    if not parcel2:
+    parcels2 = user.find_parcel(parcel_id)
+    if not parcels2:
         return jsonify({"status": 'parcel not found'}), 404
-    return jsonify({"parcel": parcel2}), 200  
+    orders = []
+    for key in range(len(parcels2)):
+        orders.append({   
+                'parcel_id':parcels2[0],
+                'user_id':parcels2[1],
+                'sender_name':parcels2[2],
+                'sender_phone':parcels2[3],
+                'pickup_location':parcels2[4],
+                'recepient_name':parcels2[5],
+                'recepient_phone':parcels2[6],
+                'recepient_location':parcels2[7],
+                'recepient_country':parcels2[8],
+                'weight':parcels2[9],
+                'price':parcels2[10],
+                'status':parcels2[11],
+                'current_location':parcels2[12],
+                'created_at':parcels2[13]
+            })
+    return jsonify({"parcels": orders}), 200    
+  
 
 @app2.route('/api/v1/parcel/<int:parcel_id>', methods=['PUT'])
 @jwt_required
 def user_update_status(parcel_id):
     data = request.get_json()
     parcel2 = user.find_parcel(parcel_id)
-    required = ('parcel_id','status')
-    if not set(required).issubset(set(data)):
+    required = ('status')
+    if not required:
         return jsonify({"message": "status missing"}), 400
     if not parcel2:
         return jsonify({"message": 'parcel not found'}), 404
@@ -251,5 +278,5 @@ def user_update_status(parcel_id):
     else:
         if parcel2[11]== "delivered":
             return jsonify({"message": 'parcel already delivered'}), 200   
-        return jsonify({"parcel" : user.update_status(parcel_id, data["status"].lower)}), 200           
+        return jsonify({"parcel" : user.update_status(parcel2[0], data["status"])}), 200           
                                 
