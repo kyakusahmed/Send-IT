@@ -73,23 +73,37 @@ $ python run.py
 |                     |                        |          | location, recepient_name, recepient_phone,    | 
 |	              |			       |	  | recepient_country, sender_id, status          | 
 |                     |                        |          |                                               |
-| user updates parcel | api/v1/parcels/id      |  PUT     | status, sender                                       |
+| user updates parcel | api/v1/parcels/id      |  PUT     | status                                        |
 |                     |                        |          |                                               |
 | Fetch all parcel    | api/v1/users/user_id/  |  GET     | user_id                                       |
 | delivery orders     | parcels                |          |                                               |
 | by a specific user  |                        |          |                                               |
-                                        
-	
+|                     |                        |          |                                               |
+|fetch all parcels in | api/v1/parcels         |  GET     | --------------------------------              |
+|app (admin)          |                        |          |                                               |
+|                     |                        |          |                                               |
+|update present       |api/v1/parcels/parcel_id|  PUT     |  current_location                             |
+|location (admin)     |                        |          |                                               |
+|                     |                        |          |                                               |
+| give admin rights   | api/v1/users/user_id   |  PUT     |  current_location                             |
+| to a normal user    | (default value is 2)   |          |                                               |
+| (admin)             |                        |          |                                               |
+|                     |                        |          |                                               |
+| admin updates parcel| api/v1/parcel/parcel_id|  PUT     |   status                                      |             
+| status              |                        |          |                                               |
+|                     |                        |          |                                               |
+| user registers      | api/v1/users/register  | POST     | first_name, last_name, email, password        |                              |                     |                        |          |                                               |
+| user login          | api/v1/users/login     | POST     |   email, password                             |
+|                     |                        |          |                                               |
+|                     |                        |          |                                               | 
+|                     |                        |          |                                               |
 ### How to run the Tests:
 
  open the terminal,activate virtual enviroment in the sendIT directory  and enter:
  ```
- $ pytest
+ $ pytest -cov
 ```
- using nosetest  in open the terminal,activate virtual enviroment in the sendIT directory and enter:
- ```
- $ nosetests --with-coverage --cover-tests
- ```
+
 
 
 
