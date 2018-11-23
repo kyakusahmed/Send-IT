@@ -119,10 +119,6 @@ def register_user():
     registered = user.get_user_by_email(data['email'])
     if registered:
         return jsonify({"message": "user registered already"}), 201
-    # if resp == "failed":
-    #     return jsonify({"message": "failed"}), 400
-    # elif resp == "user exists":
-    #     return jsonify({"message": "user registered already"}), 400
     else:
         return jsonify({"status": user.register_user(
             data["first_name"].strip(),
@@ -196,7 +192,6 @@ def view_user_parcels_history(user_id):
 
 @app2.route('/api/v1/parcels', methods=['POST'])
 @jwt_required
-# @swag_from('docs/place_order.yaml')
 def user_place_parcel():
     current_user = get_jwt_identity()
     data = request.get_json()
@@ -205,18 +200,6 @@ def user_place_parcel():
     if not set(required).issubset(set(data)):
         return jsonify({"error": "missing fields"}), 400    
     else:
-        # price = 0
-        # weight = data["weight"].strip()
-        # if weight < 1:
-        #     price = 2000
-        # elif weight < 5:
-        #     price = 5000
-        # elif weight <= 20:
-        #     price = 10000
-        # else:
-        #     weight <= 60
-        #     price = 30000 
-                      
         return jsonify({"message": user.place_parcel_delivery_order(
             current_user[0],
             data["sender_name"].strip(),
