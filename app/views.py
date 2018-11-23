@@ -223,25 +223,23 @@ def get_parcel(parcel_id):
     parcels2 = user.find_parcel(parcel_id)
     if not parcels2:
         return jsonify({"status": 'parcel not found'}), 404
-    orders = []
-    for key in range(len(parcels2)):
-        orders.append({   
-                'parcel_id':parcels2[0],
-                'user_id':parcels2[1],
-                'sender_name':parcels2[2],
-                'sender_phone':parcels2[3],
-                'pickup_location':parcels2[4],
-                'recepient_name':parcels2[5],
-                'recepient_phone':parcels2[6],
-                'recepient_location':parcels2[7],
-                'recepient_country':parcels2[8],
-                'weight':parcels2[9],
-                'price':parcels2[10],
-                'status':parcels2[11],
-                'current_location':parcels2[12],
-                'created_at':parcels2[13]
-            })
-    return jsonify({"parcels": orders}), 200    
+    parcels = user.find_parcel(parcel_id)
+    return jsonify({"parcel": { 'parcel_id':parcels[0],
+                                'user_id':parcels[1],
+                                'sender_name':parcels[2],
+                                'sender_phone':parcels[3],
+                                'pickup_location':parcels[4],
+                                'recepient_name':parcels[5],
+                                'recepient_phone':parcels[6], 
+                                'recepient_location':parcels[7],
+                                'recepient_country':parcels[8],
+                                'weight':parcels[9],
+                                'price':parcels[10],
+                                'status':parcels[11],
+                                'current_location':parcels[12],
+                                'created_at':parcels[13]
+                            }}), 200
+
   
 
 @app2.route('/api/v1/parcel/<int:parcel_id>', methods=['PUT'])
