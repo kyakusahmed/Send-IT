@@ -143,19 +143,18 @@ class UserTest(BaseTest):
         self.assertEqual(data['msg'], "Missing Authorization Header")  
 
 
-    # def test_user_register(self):
-    #     data = {
-    #        "first_name":"ahmed",
-	#        "last_name":"kyakus",
-	#        "email":"kyakus@outlook.com",
-	#        "password":"123456",
-	#        "role": "admin"
-    #        }
+    def test_user_register(self):
+        data = {
+           "first_name":"ahmed",
+	       "last_name":"kyakus",
+	       "email":"kyakus@outlook.com",
+	       "password":"123456",
+	       "role": "admin"
+           }
 
  
-    #     response = self.app1.post('/api/v1/users/register', json=data)
-    #     self.assertEqual(response.status_code, 201)
-    #     # assert json.loads(response.data)['message'] == "User added successfully"
+        response = self.app1.post('/api/v1/users/register', json=data)
+        self.assertEqual(response.status_code, 201)
 
     def test_get_all_parcels(self):
         token = self.return_user_token()
@@ -163,20 +162,20 @@ class UserTest(BaseTest):
         data = json.loads(response.get_data(as_text=True))
         assert response.status_code == 401
 
-    # def test_user_register_email_exist(self):
-    #     admin_register = {
-    #         "first_name": "amina",
-    #         "last_name": "joe",
-    #         "email": "amina@admin.com",
-    #         "password": "aminajoe",
-    #         "role": "admin"
-    #     }
+    def test_user_register_email_exist(self):
+        admin_register = {
+            "first_name": "amina",
+            "last_name": "joe",
+            "email": "amina@admin.com",
+            "password": "aminajoe",
+            "role": "admin"
+        }
 
-    #     token = self.return_user_token()
-    #     self.app1.post('/api/v1/users/register', json=admin_register)
-    #     response = self.app1.post('/api/v1/users/register', json=admin_register)
-    #     self.assertEqual(response.status_code, 201)
-    #     assert json.loads(response.data)['message'] == "user registered already"
+        token = self.return_user_token()
+        self.app1.post('/api/v1/users/register', json=admin_register)
+        response = self.app1.post('/api/v1/users/register', json=admin_register)
+        self.assertEqual(response.status_code, 201)
+        assert json.loads(response.data)['message'] == "user registered already"
 
 
     def test_successful_user_login(self):
@@ -198,40 +197,7 @@ class UserTest(BaseTest):
         self.assertEqual(response.status_code, 200)
         assert json.loads(response.data)['message'] == 'Login successful'
 
-    def test_get_parcels_with_token(self):
-        token = self.return_admin_token()
-        token2 = self.return_admin_token()
-        data = {
-            "sender_name" : "ahmad kyakulumbye",
-            "sender_phone" : "256706196611",
-            "pickup_location" : "busabala road-zone 1",
-            "recepient_name" : "muwonge badru",
-            "recepient_phone":"254704196613",
-            "recepient_country":"kenya",
-            "destination":"nairobi-main street-plot 20",
-            "weight": 50
-        }
-        self.app1.post('/api/v1/parcels',content_type="application/json",
-         headers={"Authorization": "Bearer " + token2},  data=json.dumps(data))
-        response = self.app1.get('/api/v1/parcels', headers={"Authorization": "Bearer " + token})
-        assert response.status_code == 401
 
-    def test_update_users_to_admin(self):
-        token = self.return_admin_token()
-        token2 = self.return_admin_token()
-      
-        data = {
-           "first_name":"ahmed",
-	       "last_name":"kyakus",
-	       "email":"kyakus@outlook.com",
-	       "password":"123456"
-        }
-        self.app1.post('/api/v1/users/register', json=data)
-        data1 = {"role":"admin"}
-        response = self.app1.put('/api/v1/users/1',content_type="application/json",
-        headers={"Authorization": "Bearer " + token}, data=json.dumps(data1))
-        data = json.loads(response.get_data(as_text=True))
-        assert response.status_code == 401
 
 
 
