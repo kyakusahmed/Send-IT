@@ -343,6 +343,26 @@ class UserTest(BaseTest):
         self.assertEqual(data["parcel"], "destination updated")
         assert response.status_code == 200 
 
+    def test_admin_update_status(self):
+        token = self.return_admin_token()
+        token2 = self.return_user_token()
+        data1 = {
+            "sender_name" : "ahmad",
+            "sender_phone" : "5670619611",
+            "pickup_location" : "road-zone 1",
+            "recepient_name" : "muwonge badru",
+            "recepient_phone":"254704196613",
+            "recepient_country":"kenya",
+            "destination":"nairobi",
+            "weight": "50kg"
+        }
+        self.app1.post('/api/v1/parcels',content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data1))
+        data = {"status":"accepted"}
+        response = self.app1.put('/api/v1/parcels/2',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(data['parcel'], "status updated")
+        assert response.status_code == 200      
+
    
 
 
