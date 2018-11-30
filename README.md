@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/kyakusahmed/Send-IT.svg?branch=challenge-3%2FDB)](https://travis-ci.org/kyakusahmed/Send-IT)
 [![Coverage Status](https://coveralls.io/repos/github/kyakusahmed/Send-IT/badge.svg?branch=challenge-3%2FDB)](https://coveralls.io/github/kyakusahmed/Send-IT?branch=challenge-3%2FDB)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/574b18c46867c3474061/maintainability)](https://codeclimate.com/github/kyakusahmed/Send-IT/maintainability)
 
 
 # sendIT
