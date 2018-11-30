@@ -1,26 +1,26 @@
 user_register = {
     "first_name":"ahmed",
     "last_name":"kyakus",
-    "email":"ahmed@outlook.com",
-    "password":"123456",
+    "email": "crycetruly@gmail.com",
+    "password": "813r312"
 }
 
 admin_register = {
     "first_name": "amina",
     "last_name": "joe",
-    "email": "amina@admin.com",
-    "password": "aminajoe",
-    "role": "admin"
+    "email": "kyakusahmed@gmail.com",
+    "password": "123456",
+    "status":"admin"
 }
 
 user_login = {
-    "email":"ahmed@outlook.com",
-    "password":"123456"
+    "email": "crycetruly@gmail.com",
+    "password": "813r312"
 }
 
 admin_login = {
-    "email": "crycetruly@gmail.com",
-    "password": "813r312"
+    "email": "kyakusahmed@gmail.com",
+    "password": "123456"
 }
 
 parcel= {
