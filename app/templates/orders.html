@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sendIT</title>
+<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/orders.css') }}">
+<meta charset="utf-8"> 
+<META name="keywords" lang="en-us" content="courier service for percels">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="topnav">
+    <h1>SIT</h1>
+    <a href="index.html">Signout</a>
+    <a href="profile.html">Profile</a>
+    <a href="incoming.html">In Coming</a>
+    <a class="active" href="#home">Orders</a>
+    <a href="main.html">Main</a>
+</div>
+
+<div class="content">
+    <h1>sendIT</h1>
+      <div class="orders">
+        <div class="m2">
+            PROCESSING ORDERS
+        </div>
+
+<div class="delivery">
+    <div class="order-image">
+        <p>2. Order</p>
+            </div>
+    <div class="content1">
+        <div class="user">
+            <div class="sender">
+                <h2>Sender</h2>
+                <p class="pickup_location">pickup location -- <span class="pickup_location">kabongo centre</span> </p>
+                <p class="Full_name">Fullname -- <span class="Full_name">okidi micheal</span> </p>
+                <p class="number">phone number -- <span class="phone number">256706196611</span> </p>
+            </div>
+            <div class="recipient">
+                <h2>recipient</h2>
+                <p class="Destination_location">Destination -- <span class="Destination_location">Kamwenge</span> </p>
+                <p class="Destination">Full_name -- <span class="Full_name">Kendere privah</span> </p>
+                <p class="number">Phone_number -- <span class="Phone_number">256782171716</span> </p>
+            </div>
+        </div>
+        <hr>
+        <div class="details">
+            <h2>Parcel Details</h2>
+            <p>Weight: 5 kg</p> <p> <span class="Time">time: <span class="created_at">22/10/2018-04:30pm</span></p><p> </span>
+            <span class="price">price :<span class="price">85000shs</span></span> </p>
+        </div>
+    </div>    
+                <div class="Order-button">
+            <a href="place_order.html" class="button">change Destination</a>
+        </div>
+
+    <div class="Cancel-button">
+<a href="place_order.html" class="button">Cancel Order</a>
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

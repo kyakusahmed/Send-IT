@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sendIT</title>
+<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/style.css') }}">
+<meta charset="utf-8"> 
+<META name="keywords" lang="en-us" content="fast FOODS">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="topnav">
+<h1>SIT</h1>
+<a class="active" href="#home">SignUp</a>
+</div>
+
+<div class="main-content">
+<div class = "login-page">
+<div class = "form">
+<div class = "header">
+<h1>sendIT</h1>
+<p>A courier service that helps users deliver parcels to different destinations.</P>
+</div>
+<form action="index.html" class="login-form">
+<input type="text" placeholder="first_name" required/>
+<input type="text" placeholder="last_name" required/>
+<input type="email" placeholder="Email" required/>
+<input type="password" placeholder="Password" required/>
+<button type="submit" class="button">SignUp</button>
+<P class = "message">already registered?<a href = "index.html">login</a></p>
+</form>
+</div>
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
