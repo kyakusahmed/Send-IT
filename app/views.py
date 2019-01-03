@@ -15,20 +15,20 @@ jwt = JWTManager(app2)
 app2.config['JWT_SECRET_KEY'] = 'super-secret'
 
 
-@app2.route('/user/login', methods=['GET'])
-def user_login():
-    """Render user login page"""
-    return render_template('index.html')
+# @app2.route('/user/login', methods=['GET'])
+# def user_login():
+#     """Render user login page"""
+#     return render_template('index.html')
 
-@app2.route('/user/register', methods=['GET'])
-def user_register():
-    """Render user register page."""
-    return render_template('SignUp.html')
+# @app2.route('/user/register', methods=['GET'])
+# def user_register():
+#     """Render user register page."""
+#     return render_template('SignUp.html')
 
-@app2.route('/user/status', methods=['GET'])
-def user_change_status():
-    """Render admin orders page."""
-    return render_template('orders.html')
+# @app2.route('/user/status', methods=['GET'])
+# def user_change_status():
+#     """Render admin orders page."""
+#     return render_template('orders.html')
 
 # @app2.route('/admin/menus', methods=['GET'])
 # def admin_get_all_menus_page():
@@ -84,8 +84,8 @@ def admin_update_status(parcel_id):
         if not status in status_list:
             return jsonify({"message":"status doesnot exist, use cancelled, delivered or accepted"})
 
-        if not data.get("status"):
-            return jsonify({"error" : "status is required"}), 406
+        # if not data.get("status"):
+        #     return jsonify({"error" : "status is required"}), 200
         return jsonify({"parcel" : user.update_status(parcel_id, data["status"])}), 200
 
 @app2.route('/api/v1/parcels/<int:parcel_id>/location', methods=["PUT"])
@@ -96,6 +96,7 @@ def update_current_location(parcel_id):
         return jsonify({"message":"unauthorised access"}), 401
     else:
         parcel = user.find_parcel(parcel_id)
+        print(parcel)
         if not parcel:
             return jsonify({"message" : "parcel not found"}), 404
         else:
@@ -325,9 +326,9 @@ def user_update_status(parcel_id):
     status = data['status']
     status_list = ["cancelled"]
     if not status in status_list:
-        return jsonify({"message":"status doesnot exist, use cancelled or delivered"}), 406
+        return jsonify({"message":"status doesnot exist"}), 406
     else:
-        if parcel2[11]== "delivered":
-            return jsonify({"message": 'parcel already delivered'}), 200   
+        if parcel2[11]== "cancelled":
+            return jsonify({"message": 'parcel already cancelled'}), 200   
         return jsonify({"parcel" : user.update_status(parcel2[0], data["status"])}), 200           
                                 

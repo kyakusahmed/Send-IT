@@ -10,7 +10,7 @@ admin_register = {
     "last_name": "joe",
     "email": "kyakusahmed@gmail.com",
     "password": "123456",
-    "status":"admin"
+    "role":"admin"
 }
 
 user_login = {

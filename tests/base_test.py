@@ -13,7 +13,7 @@ class BaseTest(unittest.TestCase):
         
     
     # def create_tables():
-    #     self.migration.create_tables([users, parcels])
+    #     self.migration.create_tables()
 
     def return_admin_token(self):
         """admin token."""
@@ -31,9 +31,9 @@ class BaseTest(unittest.TestCase):
         
 
     # def tearDown(self):
-    #     self.migration.drop_tables([users, parcels])
+    #     self.migration.drop_tables()
 
     # def create_tables():
-    #     self.migration.create_tables([users, parcels])
+    #     self.migration.create_tables()
 
       

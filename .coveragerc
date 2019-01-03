@@ -22,8 +22,8 @@ omit =
     *//home/travis/virtualenv/*
     */virtualenv/*
     */sen
-    */app/views/__init__.py   
-     
+    */app/views/__init__.py 
+  
     
 
     */decimal.py
@@ -50,6 +50,7 @@ omit =
     */jinja2/*
     */markupsafe/*
     */werkzeug/*
+  
    
 
 show_missing = True

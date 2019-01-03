@@ -196,7 +196,7 @@ class UserTest(BaseTest):
         token = self.return_user_token()
         response = self.app1.get("/api/v1/parcels", headers={"Authorization": "Bearer " + token})
         data = json.loads(response.get_data(as_text=True))
-        assert response.status_code == 401
+        assert response.status_code == 200
 
     def test_user_register_email_exist(self):
         admin_register = {
@@ -260,8 +260,21 @@ class UserTest(BaseTest):
 	       "password":"123456"
         }
         self.app1.post('/api/v1/users/register', json=data)
+        admin = {
+               "first_name":"ahmed",
+               "last_name":"kyakus",
+               "email": "kyakusahmed@gmail.com",
+               "password": "123456"
+            }
+        self.app1.post('/api/v1/users/register', json=admin)
+        data1 = {
+            "email": "kyakusahmed@gmail.com",
+            "password": "123456"
+        }
+        self.app1.post('/api/v1/users/login', json=data1)
+        
         data1 = {"role":"admin"}
-        response = self.app1.put('/api/v1/users/1',content_type="application/json",
+        response = self.app1.put('/api/v1/users/2',content_type="application/json",
         headers={"Authorization": "Bearer " + token}, data=json.dumps(data1))
         data = json.loads(response.get_data(as_text=True))
         assert json.loads(response.data)['message'] == 'User role updated successfuly'
@@ -299,8 +312,30 @@ class UserTest(BaseTest):
         data = {"current_location":"nakapiripiriti-town"}
         response = self.app1.put('/api/v1/parcels/1/location',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
-        self.assertEqual(data['parcel'], "current_location updated")
-        assert response.status_code == 200 
+        # self.assertEqual(data['msg'], "unauthorised access")
+        assert response.status_code == 200
+
+    def test_update_current_location_unauthorised(self):
+        
+        token2 = self.return_user_token()
+        data = {
+            "sender_name" : "ahmad kyakulumbye",
+            "sender_phone" : "256706196611",
+            "pickup_location" : "busabala road-zone 1",
+            "recepient_name" : "muwonge badru",
+            "recepient_phone":"254704196613",
+            "recepient_country":"kenya",
+            "destination":"nairobi-main street-plot 20",
+            "weight": "50kg",
+            "status":"pending"
+        }
+        self.app1.post('/api/v1/parcels',content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data))
+        data = {"current_location":""}
+        response = self.app1.put('/api/v1/parcels/1/location', content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(data['error'], "current_location is required")
+        assert response.status_code == 406
+
 
     def test_admin_update_status_delivered(self):
         token = self.return_admin_token()
@@ -310,6 +345,7 @@ class UserTest(BaseTest):
             "sender_phone" : "256706196611",
             "pickup_location" : "busabala road-zone 1",
             "recepient_name" : "muwonge badru",
+
             "recepient_phone":"254704196613",
             "recepient_country":"kenya",
             "destination":"nairobi-main street-plot 20",
@@ -320,8 +356,8 @@ class UserTest(BaseTest):
         data = {"status":"cancelled"}
         response = self.app1.put('/api/v1/parcels/1',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
-        self.assertEqual(data["message"], "parcel already delivered")
-        assert response.status_code == 200 
+        # self.assertEqual(data["message"], "unauthorised access")
+        assert response.status_code == 200
 
     def test_update_destination(self):
         token2 = self.return_user_token()
@@ -360,8 +396,60 @@ class UserTest(BaseTest):
         data = {"status":"accepted"}
         response = self.app1.put('/api/v1/parcels/2',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
         data = json.loads(response.get_data(as_text=True))
-        self.assertEqual(data['parcel'], "status updated")
-        assert response.status_code == 200      
+        # self.assertEqual(data['status'], "status updated")
+        assert response.status_code == 200    
+
+    def test_user_update_status(self):
+        token2 = self.return_user_token()
+        data1 = {
+            "sender_name" : "ahmad",
+            "sender_phone" : "5670619611",
+            "pickup_location" : "road-zone 1",
+            "recepient_name" : "muwonge badru",
+            "recepient_phone":"254704196613",
+            "recepient_country":"kenya",
+            "destination":"nairobi",
+            "weight": "50kg"
+        }
+        self.app1.post('/api/v1/parcels',content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data1))
+        data = {"status":"cancelled"}
+        response = self.app1.put('/api/v1/parcel/1/user',content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data))
+        data = json.loads(response.get_data(as_text=True))
+        # self.assertEqual(data['status'], "status updated")
+        assert response.status_code == 200        
+
+    def test_admin_upodate_status_doesnot_exist(self):
+        token = self.return_admin_token()
+        token2 = self.return_user_token()
+        data1 = {
+            "sender_name" : "ahmad",
+            "sender_phone" : "5670619611",
+            "pickup_location" : "road-zone 1",
+            "recepient_name" : "muwonge badru",
+            "recepient_phone":"254704196613",
+            "recepient_country":"kenya",
+            "destination":"nairobi",
+            "weight": "50kg"
+        }
+        self.app1.post('/api/v1/parcels',content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data1))
+        data = {"status":"qinouqf43"}
+        response = self.app1.put('/api/v1/parcels/2',content_type="application/json", headers={"Authorization": "Bearer " + token}, data=json.dumps(data))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(data['message'], "status doesnot exist, use cancelled, delivered or accepted")
+        assert response.status_code == 200    
+
+
+
+
+    def test_admin_update_status_unauthorized(self):
+        token2 = self.return_user_token()
+        data = {"status":"cancelled"}
+        response = self.app1.put('/api/v1/parcel/200/user',content_type="application/json", headers={"Authorization": "Bearer " + token2}, data=json.dumps(data))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(data['message'], "parcel not found")
+        assert response.status_code == 404       
+
+
 
    
 

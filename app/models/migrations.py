@@ -50,7 +50,7 @@ class Migration(DatabaseConnection):
             CREATED_AT timestamp(6) without time zone
             )
         """,
-        """ INSERT INTO USERS(first_name, last_name, email, password, role)VALUES('ahmad','kyakus','crycetruly@gmail.com','813r312','admin')
+        """ INSERT INTO USERS(first_name, last_name, email, password, role)VALUES('ahmad','kyakus','kyakusahmed@gmail.com','123456','admin')
         """    
         
         )
