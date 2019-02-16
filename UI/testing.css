@@ -1,0 +1,344 @@
+
+body {
+  background-color: grey;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  min-height: 100vh;
+}
+.topnav {
+  overflow: hidden;
+  background-color:orange;
+  color: green;
+  padding: 0 100px;
+  margin: 10px;
+  border-radius: 5px;
+}
+.topnav h1{
+    float: left;
+    padding: 4px;
+    color:  #ffffff;
+    font-size: 20px;
+    background-origin: padding-box;
+    background-color: #ffa500;
+    border: 2px solid #ffffff;
+}
+.topnav a {
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding:  22px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.topnav a:hover {
+  background-color: grey;
+  color: #ffffff;
+}
+.topnav a.active {
+  background-color: grey;
+  color: #ffffff;
+}
+
+.whole{
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    margin: 10px 10px;
+    border-radius: 5px;
+}
+.one{
+    flex: 2;
+    height: 510px;
+    color: white;
+    font-size: 20px; 
+    margin: 10px;
+    background-color: grey;
+    border: 6px solid orange;
+    border-radius: 10px;
+}
+.one h2{
+  margin: 60px 0 20px 210px;
+}
+.one p{
+  margin: 0 30px 0 30px;
+  font-variant-alternates: stylistic(bold);
+}
+.two{
+    flex: 2;
+    background-color: rgb(red, green, blue);
+    height: 510px;
+}
+form{
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto 80px;
+    padding: 22px;
+    text-align: center;
+    margin-top: 45px;
+    color: #ffffff;
+}
+
+.two form input{
+font-family: "roboto",sans-serif;
+outline: 1;
+background: #f2f2f2;
+width: 80%;
+border: 1px solid #ffa500;
+margin: 5px;
+padding: 15px;
+box-sizing: border-box;
+margin-left: 0px;
+border-radius: 5px;
+}
+
+.two input:hover{
+border: 1px solid grey;
+
+}
+
+.two form .button{
+font-family: "roboto", sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 80%;
+padding: 10px;
+color: white;
+font-size: 15PX;
+cursor: pointer;
+border: 1px solid orange;
+background-color: #ffa500;
+margin-top: 10px;
+border-radius: 5px;
+margin-left: -4px;
+}
+
+.two form .button:hover, form button:active{
+background-color: grey;
+color: #ffffff;
+}
+form .message{
+margin: 15px;
+color: grey;
+}
+@media screen and (max-width: 800px) {
+.whole{
+    display: block;
+    margin: auto;
+}
+}
+
+
+
+
+orders {
+width: 60%;
+margin: auto;
+box-sizing: border-box;
+}
+.orders h2, .orders h6 {
+text-align: center;
+font-size: 32px;
+color: lightgray;
+}
+.orders .menu {
+border-bottom: 3px solid #d3d3d3;
+padding: 10px;
+margin-bottom: 5px;
+color: lightgray;
+margin-top: -30px;
+}
+
+.menu .field{
+margin: -13px 0 60px 6px;
+width: 52%;
+height: 30px;
+}
+.menu P{
+margin-left: 3px;
+}
+
+.order-item {
+margin: 10px 0;
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: flex-start;
+border-bottom: 1px solid #d3d3d3;
+}
+
+
+.weight-range{
+flex: 1;
+}
+
+.weight-range  {
+margin: 0;
+height: 80px;
+width: 100px;
+}
+
+.order-content {
+flex: 3;
+}
+
+.order-item .order-button .button {
+display: block;
+margin-top: auto;
+padding: 5px;
+color: #ffffff;
+font-weight: bold;
+font-size: 12px;
+cursor: pointer;
+background:lightgrey;
+border: 1px solid #d3d3d3;
+}
+
+.order-item .order-button .button:hover{
+background-color: #ffffff;
+color:#808080;
+}  
+
+.order-item .field {
+margin: 10px;
+margin-bottom: 10PX;
+display: block;
+}
+
+.order-item label{
+margin: 10px 0 0 10px;
+color: #d3d3d3;
+}
+
+#country{
+height: 30px;
+margin: 10px 0 0 10px;
+}
+.order-item .field input {
+border: 1px solid #7f8c8d;
+padding: 8px;
+width: 52%;
+margin: 8px;
+display: block;
+}
+
+.order-item .field select {
+border: 1px solid #7f8c8d;
+padding: 6px;
+width: 52%;
+margin-left: 9px;
+background-color: #ffffff;
+}
+
+.order-item .date {
+color: #2c3e50;
+font-size: 12px;
+}
+
+a.button {
+font: bold 11px Arial;
+text-decoration: none;
+background-color: #EEEEEE;
+color: #333333;
+padding: 2px 6px 2px 6px;
+border-top: 1px solid #CCCCCC;
+border-left: 1px solid #CCCCCC;
+display: inline-block;
+margin: 10px 0px 10px 19px;
+width: 10%;
+}
+.order-content .container{
+margin: 10px;
+}
+
+.radio-buttons  {
+margin: 10px;
+}
+
+.price{
+margin-top: 80px;
+margin-bottom: 140px;
+padding: 3px;
+background-color: white;
+width: 10%;
+margin-left: -50PX;}
+
+.price{
+background-color: orange;
+height: 20%;
+width: 10%;
+margin: 110px 120px 0 -150px;
+border-radius: 50%;
+padding: 20px;
+}
+.price label{
+margin: auto;
+font-weight: bold;
+color: white;
+}
+.price span{
+color: white;
+}
+
+@media screen and (max-width: 600px) {
+.menu .field{
+display: block;
+margin-bottom: 100px;
+margin-top: 6px;
+width: 80%;
+margin-left: 4px;
+
+}
+.price{
+margin: 120px -50px 10px -80px;
+padding: 30px; 
+}
+.order-item .field{
+width: 100%;
+}
+.price label, .price span{
+margin: -25px;
+}
+.topnav a{
+display: block;
+}
+}
+
+.box1 img{
+width: 250px;
+height: 250px;
+margin: auto;
+}
+
+.details{
+  margin-top: 20px;
+}
+.details label{
+display: block;
+margin: auto;
+}
+
+.small-box{
+border: 2px solid grey;
+padding: 10px;
+margin: 20px;
+width: 50%;
+background-color: grey;
+color: white;
+}
+
+.details label span{
+  color: black;
+  margin: 0 0 0 10px;
+}
+
+.details label{
+  margin: 0 0 0 60px;
+}
+
+.box1{
+  margin: 70px 0 0 60px;
+
+}
